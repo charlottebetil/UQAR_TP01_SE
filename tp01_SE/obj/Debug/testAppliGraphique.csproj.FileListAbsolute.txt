@@ -1,0 +1,12 @@
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\bin\Debug\testAppliGraphique.exe.config
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\bin\Debug\testAppliGraphique.exe
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\bin\Debug\testAppliGraphique.pdb
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.csprojAssemblyReference.cache
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.Form1.resources
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.Properties.Resources.resources
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.csproj.GenerateResource.cache
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.csproj.CoreCompileInputs.cache
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.exe
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.pdb
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.AddProcessForm.resources
+C:\Users\fanah\Documents\UQAR\System Exploitation\TP1\testAppliGraphique\obj\Debug\testAppliGraphique.SupProcessForm.resources
