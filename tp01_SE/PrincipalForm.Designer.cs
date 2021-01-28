@@ -44,19 +44,21 @@
             // 
             this.groupBox1.Controls.Add(this.btnSup);
             this.groupBox1.Controls.Add(this.btnAjout);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(18, 18);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(144, 90);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(216, 138);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Processus";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // btnSup
             // 
-            this.btnSup.Location = new System.Drawing.Point(7, 58);
+            this.btnSup.Location = new System.Drawing.Point(10, 89);
+            this.btnSup.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSup.Name = "btnSup";
-            this.btnSup.Size = new System.Drawing.Size(128, 23);
+            this.btnSup.Size = new System.Drawing.Size(192, 35);
             this.btnSup.TabIndex = 1;
             this.btnSup.Text = "Supprimer un processus";
             this.btnSup.UseVisualStyleBackColor = true;
@@ -64,9 +66,10 @@
             // 
             // btnAjout
             // 
-            this.btnAjout.Location = new System.Drawing.Point(7, 20);
+            this.btnAjout.Location = new System.Drawing.Point(10, 31);
+            this.btnAjout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAjout.Name = "btnAjout";
-            this.btnAjout.Size = new System.Drawing.Size(128, 23);
+            this.btnAjout.Size = new System.Drawing.Size(192, 35);
             this.btnAjout.TabIndex = 0;
             this.btnAjout.Text = "Ajouter un processus";
             this.btnAjout.UseVisualStyleBackColor = true;
@@ -75,19 +78,21 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnLancer);
-            this.groupBox2.Location = new System.Drawing.Point(320, 12);
+            this.groupBox2.Location = new System.Drawing.Point(480, 18);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(177, 90);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(266, 138);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Simulation";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // btnLancer
             // 
-            this.btnLancer.Location = new System.Drawing.Point(6, 20);
+            this.btnLancer.Location = new System.Drawing.Point(9, 31);
+            this.btnLancer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLancer.Name = "btnLancer";
-            this.btnLancer.Size = new System.Drawing.Size(165, 23);
+            this.btnLancer.Size = new System.Drawing.Size(248, 35);
             this.btnLancer.TabIndex = 2;
             this.btnLancer.Text = "Lancer";
             this.btnLancer.UseVisualStyleBackColor = true;
@@ -96,9 +101,11 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lstRAM);
-            this.groupBox3.Location = new System.Drawing.Point(12, 117);
+            this.groupBox3.Location = new System.Drawing.Point(18, 180);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(485, 294);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox3.Size = new System.Drawing.Size(728, 452);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "RAM";
@@ -107,20 +114,21 @@
             // 
             this.lstRAM.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lstRAM.FormattingEnabled = true;
-            this.lstRAM.Location = new System.Drawing.Point(7, 19);
+            this.lstRAM.ItemHeight = 20;
+            this.lstRAM.Location = new System.Drawing.Point(10, 29);
+            this.lstRAM.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstRAM.Name = "lstRAM";
-            this.lstRAM.Size = new System.Drawing.Size(472, 264);
+            this.lstRAM.Size = new System.Drawing.Size(706, 404);
             this.lstRAM.TabIndex = 1;
             // 
             // PrincipalForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 432);
+            this.ClientSize = new System.Drawing.Size(800, 665);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PrincipalForm";
             this.Text = "Ordonnanceur";
             this.Load += new System.EventHandler(this.Form1_Load);

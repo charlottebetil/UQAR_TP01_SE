@@ -12,9 +12,11 @@ namespace tp01_SE
 {
     public partial class PrincipalForm : Form
     {
+        public List<Processus> lstProcessus;
         public PrincipalForm()
         {
             InitializeComponent();
+            this.lstProcessus = new List<Processus>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,31 +28,21 @@ namespace tp01_SE
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLancer_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Lancement de la simulation");
+            //Algo principale
         }
 
         private void btnAjout_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Ajout d'un nouveau processus");
-            Form form = new AddProcessForm();
+            Form form = new AddProcessForm(ref this.lstProcessus);
             form.ShowDialog();
         }
 
         private void btnSup_Click(object sender, EventArgs e)
         {
-            Form form = new SupProcessForm();
+            Form form = new SupProcessForm(ref this.lstProcessus);
             form.ShowDialog();
         }
     }

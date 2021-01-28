@@ -36,16 +36,21 @@
             // lstProcessusAnnule
             // 
             this.lstProcessusAnnule.FormattingEnabled = true;
-            this.lstProcessusAnnule.Location = new System.Drawing.Point(12, 12);
+            this.lstProcessusAnnule.ItemHeight = 20;
+            this.lstProcessusAnnule.Location = new System.Drawing.Point(18, 18);
+            this.lstProcessusAnnule.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstProcessusAnnule.Name = "lstProcessusAnnule";
-            this.lstProcessusAnnule.Size = new System.Drawing.Size(214, 147);
+            this.lstProcessusAnnule.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstProcessusAnnule.Size = new System.Drawing.Size(319, 224);
             this.lstProcessusAnnule.TabIndex = 0;
+            this.lstProcessusAnnule.SelectedIndexChanged += new System.EventHandler(this.lstProcessusAnnule_SelectedIndexChanged);
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(70, 176);
+            this.btnOk.Location = new System.Drawing.Point(105, 271);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.Size = new System.Drawing.Size(112, 35);
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -53,9 +58,10 @@
             // 
             // btnAnnuler
             // 
-            this.btnAnnuler.Location = new System.Drawing.Point(151, 176);
+            this.btnAnnuler.Location = new System.Drawing.Point(226, 271);
+            this.btnAnnuler.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAnnuler.Name = "btnAnnuler";
-            this.btnAnnuler.Size = new System.Drawing.Size(75, 23);
+            this.btnAnnuler.Size = new System.Drawing.Size(112, 35);
             this.btnAnnuler.TabIndex = 2;
             this.btnAnnuler.Text = "Annuler";
             this.btnAnnuler.UseVisualStyleBackColor = true;
@@ -63,12 +69,13 @@
             // 
             // SupProcessForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 211);
+            this.ClientSize = new System.Drawing.Size(357, 325);
             this.Controls.Add(this.btnAnnuler);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.lstProcessusAnnule);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SupProcessForm";
             this.Text = "Suppression de Processus";
             this.ResumeLayout(false);
