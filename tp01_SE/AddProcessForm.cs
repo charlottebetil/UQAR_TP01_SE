@@ -57,7 +57,7 @@ namespace tp01_SE
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            Processus currentProcessus = new Processus(this.lstProcessus.Count(), this.txtNom.Text, this.numPriorite.Value, this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.numNbCycle.Value, this.nbThread());
+            Processus currentProcessus = new Processus(this.lstProcessus.Count() + 1 , this.txtNom.Text, this.numPriorite.Value, this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.numNbCycle.Value, this.nbThread());
             if (this.checkInputFilled())
             {
                 this.lstProcessus.Add(currentProcessus);

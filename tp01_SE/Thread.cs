@@ -43,6 +43,7 @@ namespace tp01_SE
         {
             string infos = "Processus: " + this.processNom + "\n\t";
             infos += "PID: " + this.PID + "\n\t";
+            infos += "TID: " + this.TID + "\n\t";
             infos += "Priorité: " + this.priorite + "\n\t";
             infos += "Etat:";
             return (infos);

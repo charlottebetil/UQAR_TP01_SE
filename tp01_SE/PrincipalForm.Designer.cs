@@ -114,6 +114,8 @@
             // 
             this.lstRAM.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lstRAM.FormattingEnabled = true;
+            this.lstRAM.HorizontalExtent = 1500000;
+            this.lstRAM.HorizontalScrollbar = true;
             this.lstRAM.ItemHeight = 20;
             this.lstRAM.Location = new System.Drawing.Point(10, 29);
             this.lstRAM.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -121,6 +123,7 @@
             this.lstRAM.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.lstRAM.Size = new System.Drawing.Size(706, 404);
             this.lstRAM.TabIndex = 1;
+            this.lstRAM.SelectedIndexChanged += new System.EventHandler(this.lstRAM_SelectedIndexChanged);
             // 
             // PrincipalForm
             // 
@@ -148,7 +151,7 @@
         private System.Windows.Forms.Button btnSup;
         private System.Windows.Forms.Button btnLancer;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox lstRAM;
+        public System.Windows.Forms.ListBox lstRAM;
     }
 }
 

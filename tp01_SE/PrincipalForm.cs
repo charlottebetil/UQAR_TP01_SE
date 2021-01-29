@@ -19,7 +19,6 @@ namespace tp01_SE
             InitializeComponent();
             this.lstProcessus = new List<Processus>();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             MessageBox.Show("Bienvenue sur l'outil: Ordonnanceur\n" +
@@ -49,12 +48,12 @@ namespace tp01_SE
             form.ShowDialog();
         }
 
-
         private void displayLstThread()
         {
-
-            Debug.WriteLine("Affichage des threads: nbProcess:" + this.lstProcessus.Count());
             this.lstRAM.BeginUpdate();
+            //Je clear les items de la listBox, pour pas que ça reécrive le process précedant
+            this.lstRAM.Items.Clear();
+            Debug.WriteLine("Affichage des threads: nbProcess:" + this.lstProcessus.Count());
             foreach (Processus process in this.lstProcessus)
             {
                 Debug.WriteLine("nbThread: " + process.getThreads().Count());
@@ -69,6 +68,11 @@ namespace tp01_SE
                 
             }
             this.lstRAM.EndUpdate();
+        }
+
+        private void lstRAM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

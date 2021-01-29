@@ -43,7 +43,7 @@ namespace tp01_SE
         {
             if (this.nbThread == 1)
             {
-                Thread newThread = new Thread(this.nom, this.PID, this.priorite, this.PID * 10, this.initInstruction());
+                Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction());
                 this.lstThread.Add(newThread);
             }
 
