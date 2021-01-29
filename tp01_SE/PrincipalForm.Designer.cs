@@ -118,6 +118,7 @@
             this.lstRAM.Location = new System.Drawing.Point(10, 29);
             this.lstRAM.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstRAM.Name = "lstRAM";
+            this.lstRAM.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.lstRAM.Size = new System.Drawing.Size(706, 404);
             this.lstRAM.TabIndex = 1;
             // 

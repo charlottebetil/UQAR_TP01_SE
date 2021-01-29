@@ -24,23 +24,23 @@ namespace tp01_SE
 
         }
 
-        private Thread nbThread()
+        private int nbThread()
         {
 
             if (this.rdBtnMono.Checked) {
-                return (Thread.mono);
+                return (1);
             } else if (this.rdBtn2Thread.Checked)
             {
-                return (Thread.couple);
+                return (2);
             } else if (this.rdBtn3Thread.Checked)
             {
-                return (Thread.triple);
+                return (3);
             } else if (this.rdBtn1et3Thread.Checked)
             {
-                return (Thread.random);
+                return (3);
             }
 
-            return (Thread.mono);
+            return (1);
         }
 
         private bool checkInputFilled()

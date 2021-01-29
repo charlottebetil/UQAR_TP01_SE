@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -36,14 +37,38 @@ namespace tp01_SE
 
         private void btnAjout_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("Ajout");
             Form form = new AddProcessForm(ref this.lstProcessus);
             form.ShowDialog();
+            this.displayLstThread();
         }
 
         private void btnSup_Click(object sender, EventArgs e)
         {
             Form form = new SupProcessForm(ref this.lstProcessus);
             form.ShowDialog();
+        }
+
+
+        private void displayLstThread()
+        {
+
+            Debug.WriteLine("Affichage des threads: nbProcess:" + this.lstProcessus.Count());
+            this.lstRAM.BeginUpdate();
+            foreach (Processus process in this.lstProcessus)
+            {
+                Debug.WriteLine("nbThread: " + process.getThreads().Count());
+                foreach(Thread thread in process.getThreads())
+                {
+                    this.lstRAM.Items.Add(thread.getInfoThread());
+                    foreach (string instruct in thread.getInstructions())
+                    {
+                        this.lstRAM.Items.Add(instruct);
+                    }
+                }
+                
+            }
+            this.lstRAM.EndUpdate();
         }
     }
 }

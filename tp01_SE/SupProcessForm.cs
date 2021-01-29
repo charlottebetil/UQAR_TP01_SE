@@ -43,31 +43,16 @@ namespace tp01_SE
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (this.lstProcessusAnnule.SelectedItems != null) {
-
-                ListBox.SelectedObjectCollection selectedItems = new ListBox.SelectedObjectCollection(lstProcessusAnnule);
-                selectedItems = lstProcessusAnnule.SelectedItems;
-
-                if (lstProcessusAnnule.SelectedIndex != -1)
-                {
-                    this.lstProcessusAnnule.BeginUpdate();
-                    for (int i = selectedItems.Count - 1; i >= 0; i--)
-                    {
-                        lstProcessusAnnule.Items.Remove(selectedItems[i]);
-                    }
-
-                    this.lstProcessusAnnule.EndUpdate();
-                    this.Close();
-                }
+            if (this.lstProcessusAnnule.SelectedItem != null) {
+                ListBox.SelectedObjectCollection selectedItem = new ListBox.SelectedObjectCollection(lstProcessusAnnule);
+                lstProcessusAnnule.Items.Remove(selectedItem);
+                lstProcessus.Remove(lstProcessus.Find(process => process.getName() == this.lstProcessusAnnule.SelectedItem.ToString()));
+                this.Close();
             } else
             {
                 MessageBox.Show("Selectionnez un processsus");
             }
         }
-        /*public static implicit operator int(Duree a)
-        {
-            return (a.secondes + ((a.minutes + (a.heures * 60)) * 60));
-        }*/
 
 
         private void btnAnnuler_Click(object sender, EventArgs e)

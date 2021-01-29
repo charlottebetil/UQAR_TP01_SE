@@ -67,6 +67,7 @@
     <Compile Include="SupProcessForm.Designer.cs">
       <DependentUpon>SupProcessForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Thread.cs" />
     <EmbeddedResource Include="AddProcessForm.resx">
       <DependentUpon>AddProcessForm.cs</DependentUpon>
     </EmbeddedResource>
