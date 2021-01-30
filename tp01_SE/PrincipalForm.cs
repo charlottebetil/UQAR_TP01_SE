@@ -30,6 +30,7 @@ namespace tp01_SE
 
         private void btnLancer_Click(object sender, EventArgs e)
         {
+            //Debug.WriteLine(4%1);
             MessageBox.Show("Lancement de la simulation");
             //Algo principale
         }

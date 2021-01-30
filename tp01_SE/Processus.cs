@@ -43,19 +43,47 @@ namespace tp01_SE
         {
             if (this.nbThread == 1)
             {
-                Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction());
+                Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0,0));
                 this.lstThread.Add(newThread);
+            } else
+            {
+                bool flagCalc = false;
+                bool flagES = false;
+                for (int i = 0; i < this.nbThread - 1; i++)
+                {
+                    if (((this.nbInstructCalc % this.nbThread) != 0 && !flagCalc) && ((this.nbInstructES % this.nbThread) != 0 && !flagES))
+                    {
+                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(1, 1));
+                        this.lstThread.Add(newThread);
+                        flagCalc = true;
+                        flagES = true;
+
+                    } else if ((this.nbInstructCalc % this.nbThread) != 0 && !flagCalc)
+                    {
+                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(1, 0));
+                        this.lstThread.Add(newThread);
+                        flagES = true;
+                    } else if ((this.nbInstructES % this.nbThread) != 0 && !flagES)
+                    {
+                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0, 1));
+                        this.lstThread.Add(newThread);
+                        flagCalc = true;
+                    } else {
+                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0, 0));
+                        this.lstThread.Add(newThread);
+                    }
+                }
             }
 
         }
 
-        public List<string> initInstruction() {
+        public List<string> initInstruction(int ajoutNbInstructCalc, int ajoutNbInstructES) {
             List<string> instruct = new List<string>();
-            for (int i = 0; i < nbInstructCalc; i++)
+            for (int i = 0; i < (nbInstructCalc + ajoutNbInstructCalc); i++)
             {
                 instruct.Add("Calcul");
             }
-            for (int i = 0; i < nbInstructES; i++)
+            for (int i = 0; i < (nbInstructES + ajoutNbInstructES); i++)
             {
                 instruct.Add("Entree Sortie");
             }

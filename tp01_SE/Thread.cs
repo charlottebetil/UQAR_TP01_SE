@@ -22,23 +22,6 @@ namespace tp01_SE
             this.lstInstructions = lstInstructions;
         }
 
-        /*public string getProcessName()
-        {
-            return (this.processName);
-        }
-        public int getPID()
-        {
-            return (this.PID);
-        }
-        public int getPriority()
-        {
-            return (this.priority);
-        }
-        public int getPID()
-        {
-            return (this.PID);
-        }*/
-
         public string getInfoThread()
         {
             string infos = "Processus: " + this.processNom + "\n\t";
