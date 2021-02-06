@@ -34,12 +34,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnLancer = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lstRAM = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tblRAM = new System.Windows.Forms.TableLayoutPanel();
-            this.btntestcouleur = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -102,30 +103,24 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lstRAM);
-            this.groupBox3.Location = new System.Drawing.Point(16, 144);
+            this.groupBox3.Controls.Add(this.panel1);
+            this.groupBox3.Location = new System.Drawing.Point(16, 132);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(300, 343);
+            this.groupBox3.Size = new System.Drawing.Size(1285, 447);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "RAM";
             // 
-            // lstRAM
+            // panel1
             // 
-            this.lstRAM.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.lstRAM.FormattingEnabled = true;
-            this.lstRAM.HorizontalExtent = 1500000;
-            this.lstRAM.HorizontalScrollbar = true;
-            this.lstRAM.ItemHeight = 16;
-            this.lstRAM.Location = new System.Drawing.Point(9, 23);
-            this.lstRAM.Margin = new System.Windows.Forms.Padding(4);
-            this.lstRAM.Name = "lstRAM";
-            this.lstRAM.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.lstRAM.Size = new System.Drawing.Size(628, 324);
-            this.lstRAM.TabIndex = 1;
-            this.lstRAM.SelectedIndexChanged += new System.EventHandler(this.lstRAM_SelectedIndexChanged);
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tblRAM);
+            this.panel1.Location = new System.Drawing.Point(9, 22);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1269, 418);
+            this.panel1.TabIndex = 0;
             // 
             // tblRAM
             // 
@@ -134,32 +129,30 @@
             this.tblRAM.ColumnCount = 1;
             this.tblRAM.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblRAM.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblRAM.Location = new System.Drawing.Point(352, 167);
+            this.tblRAM.Location = new System.Drawing.Point(3, 3);
             this.tblRAM.Name = "tblRAM";
             this.tblRAM.RowCount = 1;
             this.tblRAM.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblRAM.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblRAM.Size = new System.Drawing.Size(155, 120);
+            this.tblRAM.Size = new System.Drawing.Size(171, 100);
             this.tblRAM.TabIndex = 4;
             this.tblRAM.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tblRAM_CellPaint);
             // 
-            // btntestcouleur
+            // label1
             // 
-            this.btntestcouleur.Location = new System.Drawing.Point(259, 63);
-            this.btntestcouleur.Name = "btntestcouleur";
-            this.btntestcouleur.Size = new System.Drawing.Size(105, 35);
-            this.btntestcouleur.TabIndex = 5;
-            this.btntestcouleur.Text = "test couleur";
-            this.btntestcouleur.UseVisualStyleBackColor = true;
-            this.btntestcouleur.Click += new System.EventHandler(this.btntestcouleur_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(772, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
             // 
             // PrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1212, 532);
-            this.Controls.Add(this.btntestcouleur);
-            this.Controls.Add(this.tblRAM);
+            this.ClientSize = new System.Drawing.Size(1314, 602);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -170,6 +163,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,9 +178,9 @@
         private System.Windows.Forms.Button btnSup;
         private System.Windows.Forms.Button btnLancer;
         private System.Windows.Forms.GroupBox groupBox3;
-        public System.Windows.Forms.ListBox lstRAM;
         private System.Windows.Forms.TableLayoutPanel tblRAM;
-        private System.Windows.Forms.Button btntestcouleur;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace tp01_SE
         private decimal nbInstructCalc;
         private decimal nbInstructES;
         private decimal nbCycle;
+        private int estimatedExecutionTime;
         public int nbThread;
         private List<Thread> lstThread = new List<Thread>();
         public Processus(int PID, string nom, decimal priorite, decimal nbInstructCalc, decimal nbInstructES, decimal nbCycle, int nbThread)
@@ -26,6 +28,7 @@ namespace tp01_SE
             this.nbCycle = nbCycle;
             this.nbThread = nbThread;
             this.initLstThread();
+            this.calculateEstimatedExecutionTime();
         }
 
         public string getName() 
@@ -37,68 +40,74 @@ namespace tp01_SE
         {
             return (this.lstThread);
         }
-
+        
         public void initLstThread()
-        {
-            if (this.nbThread == 1)
+        {           
+            for (int i = 0; i < this.nbThread; i++)
             {
-                Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0,0));
-                this.lstThread.Add(newThread);
-            } else
+                List<Instruction> emptyLstInstructions = new List<Instruction>();
+                Thread thread = new Thread(this.nom, this.PID, this.priorite, i, emptyLstInstructions);
+                lstThread.Add(thread);
+            }
+                
+            List<Instruction> lstInstructions = new List<Instruction>();
+            lstInstructions = createLstInstructions();
+
+            int y = 0;
+            foreach (Instruction instruction in lstInstructions)
             {
-                bool flagCalc = false;
-                bool flagES = false;
-                for (int i = 0; i < this.nbThread; i++)
+                    
+                this.lstThread[y].setInstructions(instruction);
+                y++;
+
+                if (y >= this.nbThread)
                 {
-                    if (((this.nbInstructCalc % this.nbThread) != 0 && !flagCalc) && ((this.nbInstructES % this.nbThread) != 0 && !flagES))
-                    {
-                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(1, 1));
-                        this.lstThread.Add(newThread);
-                        flagCalc = true;
-                        flagES = true;
+                    y = 0;
+                }                        
+            }
+        }
+     
+        public List<Instruction> createLstInstructions()
+        {
+            List<Instruction> lstInstructions = new List<Instruction>();
+            int nbrInstruction = Convert.ToInt32(this.nbInstructCalc + this.nbInstructES);
+            for (int i = 0; i < this.nbInstructCalc; i++)
+            {
+                Instruction instruction = new Instruction(Enums.type.Calcul);
+                lstInstructions.Add(instruction);
+            }
+            for (int i = 0; i < this.nbInstructES; i++)
+            {
+                Instruction instruction = new Instruction(Enums.type.EntreeSortie);
+                lstInstructions.Add(instruction);
+            }
+            return lstInstructions;
+        }
 
+        public int getEstimatedExecutionTime()
+        {
+            return (this.estimatedExecutionTime);
+        }
+
+        private void calculateEstimatedExecutionTime()
+        {
+            
+            foreach(Thread thread in this.lstThread)
+            {
+                foreach(Instruction instruction in thread.getInstructions())
+                {
+                    if(instruction.Type == Enums.type.Calcul)
+                    {
+                        this.estimatedExecutionTime +=1;
                     }
-
-                    else if ((this.nbInstructCalc % this.nbThread) != 0 && flagCalc)
+                    else
                     {
-                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(1, 0));
-                        this.lstThread.Add(newThread);
-                        flagES = true;
-                    }         
-
-                    else if ((this.nbInstructES % this.nbThread) != 0 && !flagES)
-                    {
-                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0, 1));
-                        this.lstThread.Add(newThread);
-                        flagCalc = true;
-                    }                    
-                    else {
-                        Thread newThread = new Thread(this.nom, this.PID, this.priorite, (this.PID * 10) + this.lstThread.Count(), this.initInstruction(0, 0));
-                        this.lstThread.Add(newThread);
+                        this.estimatedExecutionTime +=3;
                     }
                 }
             }
-
-        }
-
-        public List<Instruction> initInstruction(int ajoutNbInstructCalc, int ajoutNbInstructES) {
-            List<Instruction> listInstructions = new List<Instruction>();
             
-            for (int i = 0; i < (nbInstructCalc + ajoutNbInstructCalc) ; i++)
-            {
-                Instruction instruction = new Instruction(Enums.etat.Initialise, Enums.type.Calcul);
-                listInstructions.Add(instruction);
-                //instruct.Add("Calcul");
-            }
-            for (int i = 0; i < (nbInstructES + ajoutNbInstructES); i++)
-            {
-                Instruction instruction = new Instruction(Enums.etat.Initialise, Enums.type.EntreeSortie);
-                listInstructions.Add(instruction);
-                //instruct.Add("Entree Sortie");
-            }
-            return (listInstructions);
+
         }
-
-
     }
 }

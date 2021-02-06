@@ -13,14 +13,16 @@ namespace tp01_SE
 {
     public partial class PrincipalForm : Form
     {
-        public List<Processus> lstProcessus;
+        List<Processus> lstProcessus;
         Color[,] bgColors;
         Boolean bgColorsOk = false;
+        int rowCountMax = 0;
+        
 
-    //    Color[,] bgColors = new Color[2, 8] {
-    //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control },
-    //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control }
-    //    };
+        //    Color[,] bgColors = new Color[2, 8] {
+        //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control },
+        //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control }
+        //    };
 
         public PrincipalForm()
         {
@@ -33,57 +35,50 @@ namespace tp01_SE
                             "Version: Beta\n" +
                             "Author: Bétil Charlotte & Chevallier Pierre\n" +
                             "Organisation: UQAR\n");
-
-            
-
         }
 
         private void btnLancer_Click(object sender, EventArgs e)
         {
-            //Debug.WriteLine(4%1);
             MessageBox.Show("Lancement de la simulation");
             //Algo principale
-            /*
-            foreach (Processus process in lstProcessus)
+            
+            if (lstProcessus.Count > 1) 
+            {               
+                List<Processus> orderedListProcessus3 = new List<Processus>();
+                orderedListProcessus3.AddRange(OrderListProcessus(lstProcessus));                
+                
+                launchProcessus(orderedListProcessus3);
+            }
+            else
             {
-                //Algo test
-                lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours.ToString();
-                updateCouleur();
-                System.Threading.Thread.Sleep(3000);
-                lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine.ToString();
-                lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.EnCours.ToString();
-                updateCouleur();
-                System.Threading.Thread.Sleep(3000);
-                lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.Termine.ToString();
-                updateCouleur();
-            } */
-            lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
-            updateCouleur();
-            System.Threading.Thread.Sleep(3000);
-            lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
-            lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.EnCours;
-            updateCouleur();
-            System.Threading.Thread.Sleep(3000);
-            lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.Termine;
-            updateCouleur();
+                launchProcessus(this.lstProcessus);
+            }
+            
 
-            lstProcessus[1].getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
-            updateCouleur();
-            System.Threading.Thread.Sleep(3000);
-            lstProcessus[1].getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
-            lstProcessus[1].getThreads().First().getInstructions()[3].Etat = Enums.etat.EnCours;
-            updateCouleur();
-            System.Threading.Thread.Sleep(3000);
-            lstProcessus[1].getThreads().First().getInstructions()[3].Etat = Enums.etat.Termine;
-            updateCouleur();
-
-
+            ////Algo test
+            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
+            //updateCouleur();
+            //System.Threading.Thread.Sleep(3000);
+            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
+            //lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.EnCours;
+            //updateCouleur();
+            //System.Threading.Thread.Sleep(3000);
+            //lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.Termine;
+            //updateCouleur();
+            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
+            //updateCouleur();
+            //System.Threading.Thread.Sleep(3000);
+            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
+            //lstProcessus.First().getThreads().First().getInstructions()[1].Etat = Enums.etat.EnCours;
+            //updateCouleur();
+            //System.Threading.Thread.Sleep(3000);
+            //lstProcessus.First().getThreads().First().getInstructions()[1].Etat = Enums.etat.Termine;
+            //updateCouleur();
 
         }
 
         private void btnAjout_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Ajout");
             Form form = new AddProcessForm(ref this.lstProcessus);
             form.ShowDialog();
             this.displayLstThread();
@@ -91,140 +86,109 @@ namespace tp01_SE
 
         private void btnSup_Click(object sender, EventArgs e)
         {
+            bgColorsOk = false;
             Form form = new SupProcessForm(ref this.lstProcessus);
-            form.ShowDialog();
+            form.ShowDialog();            
+            this.displayLstThread();
+            
         }
 
         private void displayLstThread()
-        {
-            this.lstRAM.BeginUpdate();
-            //Je clear les items de la listBox, pour pas que ça reécrive le process précedant
-            this.lstRAM.Items.Clear();            
+        {         
             tblRAM.Controls.Clear();
             tblRAM.RowCount = 1;
             tblRAM.ColumnCount = 0;
-            Debug.WriteLine("Affichage des threads: nbProcess:" + this.lstProcessus.Count());
             foreach (Processus process in this.lstProcessus)
             {
                 tblRAM.RowCount = 1;
-                Debug.WriteLine("nbThread: " + process.getThreads().Count());
                 foreach(Thread thread in process.getThreads())
                 {
-                    this.lstRAM.Items.Add(thread.getInfoThread());
-                    tblRAM.ColumnCount++;
-                    tblRAM.RowCount = 1;                                                   
-                    //Ajouter un rowstyle
-                    tblRAM.RowStyles.Add(new RowStyle(SizeType.Absolute));
-                    //Ajouter une ligne
+                    tblRAM.ColumnCount++;                    
+                    tblRAM.RowCount = 1;                                                                                                         
+                    tblRAM.RowStyles.Add(new RowStyle(SizeType.Absolute));                   
                     Label lbl = new Label();
                     lbl.Height = 70;
                     lbl.BackColor = Color.Transparent;
                     lbl.Text = thread.getInfoThread();
                     tblRAM.Controls.Add(lbl, tblRAM.ColumnCount - 1, tblRAM.RowCount - 1);                                   
                     foreach (Instruction instruct in thread.getInstructions())
-                    {                        
-                        this.lstRAM.Items.Add(instruct);                        
+                    {                                               
                         tblRAM.RowCount++;
                         Label lbl2 = new Label();
                         lbl2.Height = 25;
                         lbl2.BackColor = Color.Transparent;
                         lbl2.Text = instruct.Type.ToString();
-                        tblRAM.Controls.Add(lbl2, tblRAM.ColumnCount - 1, tblRAM.RowCount - 1);                                         
-                    }
-                }
-                TableLayoutRowStyleCollection styles = tblRAM.RowStyles;
-                foreach (RowStyle style in styles)
-                {
-                    if (style.SizeType == SizeType.Absolute)
-                    {
-                        style.Height = 30;
-                    }
-                    else
-                    {
-                        style.Height = 100;
+                        tblRAM.Controls.Add(lbl2, tblRAM.ColumnCount - 1, tblRAM.RowCount - 1);
+                        if (rowCountMax < tblRAM.RowCount)
+                        {
+                            rowCountMax = tblRAM.RowCount;
+                        }
                     }
                 }
             }
-            this.lstRAM.EndUpdate();
-
-            createCellColor(tblRAM.ColumnCount, tblRAM.RowCount);
+            TableLayoutRowStyleCollection styles = tblRAM.RowStyles;
+            foreach (RowStyle style in styles)
+            {
+                if (style.SizeType == SizeType.Absolute)
+                {
+                    style.Height = 30;
+                }
+                else
+                {
+                    style.Height = 100;
+                }
+            }
+            createCellColor(tblRAM.ColumnCount, rowCountMax + 1);
         }
         private void createCellColor(int column, int row)
         {
             bgColors = new Color[column, row];
             for (int i = 0; i < column; i++)
-            {
-                
+            {                
                 for (int y = 0; y < row; y++)
                 {
                     bgColors[i, y] = SystemColors.Control;
-                }
-                
+                }                
             }
             bgColorsOk = true;
             tblRAM.Refresh();
             bgColorsOk = false;
-
-
-
-        }
-        private void lstRAM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void btntestcouleur_Click(object sender, EventArgs e)
-        {
-
-            bgColors[0, 2] = Color.Red;
-            tblRAM.Refresh();
-        }
+        }          
 
         private void tblRAM_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            //createCellColor(tblRAM.ColumnCount, tblRAM.RowCount);
-            if (bgColorsOk == true)
-            {
+        {          
+            if (bgColorsOk == true && lstProcessus.Count !=0)
+            {                
                 using (var b = new SolidBrush(bgColors[e.Column, e.Row]))
                 {
                     e.Graphics.FillRectangle(b, e.CellBounds);
-                }
-                
+                }                
             }
-            
         }
 
         private void updateCouleur()
         {
-
             int column = 0;
             foreach (Processus process in lstProcessus)
-            {
-                
+            {                
                 foreach (Thread thread in process.getThreads())
                 {
                     int row = 1;
                     foreach (Instruction instruction in thread.getInstructions())
-                    {
-                        
-                        if (instruction.Etat.Equals(Enums.etat.EnCours.ToString()))
+                    {                        
+                        if (instruction.Etat.Equals(Enums.etat.EnCours))
                         {
                             bgColors[column, row] = Color.Red;
                             bgColorsOk = true;
                             tblRAM.Refresh();
                         }
-                        if (instruction.Etat.Equals(Enums.etat.Termine.ToString()))
+                        if (instruction.Etat.Equals(Enums.etat.Termine))
                         {
                             bgColors[column, row] = Color.LightGray;
                             bgColorsOk = true;
                             tblRAM.Refresh();
                         }
-                        if (instruction.Etat.Equals(Enums.etat.Initialise.ToString()))
+                        if (instruction.Etat.Equals(Enums.etat.Initialise))
                         {
                             bgColors[column, row] = Color.Blue;
                             bgColorsOk = true;
@@ -237,5 +201,60 @@ namespace tp01_SE
             }
             bgColorsOk = false;
         }
+        private List<Processus> OrderListProcessus(List<Processus> newlistProcessus)
+        {
+            List<Processus> newlist = new List<Processus>();
+            newlist.AddRange(newlistProcessus);
+
+            int lenght = newlistProcessus.Count;
+            int i = 0;
+            label1.Text = "";
+            while (lenght>0)
+            {
+                for (i = 0; i < lenght - 1; i++)
+                {
+                    if (newlist[i].getEstimatedExecutionTime() > newlist[i+1].getEstimatedExecutionTime())
+                    {
+                        Processus processus = newlist[i];
+                        newlist[i] = newlist[i+1];
+                        newlist[i + 1] = processus;
+                    }
+                }
+                lenght = lenght - 1;
+                label1.Text=label1.Text+"\n Processus: "+ newlist[i].getName() + "    EstimatedTime: "+ newlist[i].getEstimatedExecutionTime();
+            }
+            return newlist;
+        }
+
+        private void launchProcessus(List<Processus> orderedListPRocessus) 
+        {
+            foreach(Processus processus in orderedListPRocessus)
+            {
+                foreach(Thread thread in processus.getThreads())
+                {
+                    foreach(Instruction instruction in thread.getInstructions())
+                    {
+                        instruction.Etat = Enums.etat.EnCours;
+                        updateCouleur();
+                        sleep(instruction);
+                        instruction.Etat = Enums.etat.Termine;
+                        updateCouleur();
+                    }
+                }
+            }
+        }
+
+        private void sleep(Instruction instruction)
+        {
+            if (instruction.Type == Enums.type.Calcul)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+            else
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
+        }
+
     }
 }
