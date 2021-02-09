@@ -11,14 +11,14 @@ namespace tp01_SE
     {
         private int PID;
         private string nom;
-        private decimal priorite;
+        private int priorite;
         private decimal nbInstructCalc;
         private decimal nbInstructES;
         private decimal nbCycle;
         private int estimatedExecutionTime;
         public int nbThread;
         private List<Thread> lstThread = new List<Thread>();
-        public Processus(int PID, string nom, decimal priorite, decimal nbInstructCalc, decimal nbInstructES, decimal nbCycle, int nbThread)
+        public Processus(int PID, string nom, int priorite, decimal nbInstructCalc, decimal nbInstructES, decimal nbCycle, int nbThread)
         {
             this.PID = PID;
             this.nom = nom;
@@ -55,8 +55,7 @@ namespace tp01_SE
 
             int y = 0;
             foreach (Instruction instruction in lstInstructions)
-            {
-                    
+            {                    
                 this.lstThread[y].setInstructions(instruction);
                 y++;
 
@@ -89,9 +88,13 @@ namespace tp01_SE
             return (this.estimatedExecutionTime);
         }
 
-        private void calculateEstimatedExecutionTime()
+        public int getPriorite()
         {
-            
+            return (this.priorite);
+        }
+
+        private void calculateEstimatedExecutionTime()
+        {            
             foreach(Thread thread in this.lstThread)
             {
                 foreach(Instruction instruction in thread.getInstructions())
@@ -105,9 +108,7 @@ namespace tp01_SE
                         this.estimatedExecutionTime +=3;
                     }
                 }
-            }
-            
-
+            }            
         }
     }
 }

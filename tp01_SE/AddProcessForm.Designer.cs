@@ -54,20 +54,20 @@
             // lblNom
             // 
             this.lblNom.AutoSize = true;
-            this.lblNom.Location = new System.Drawing.Point(256, 34);
+            this.lblNom.Location = new System.Drawing.Point(228, 27);
             this.lblNom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNom.Name = "lblNom";
-            this.lblNom.Size = new System.Drawing.Size(50, 20);
+            this.lblNom.Size = new System.Drawing.Size(45, 17);
             this.lblNom.TabIndex = 0;
             this.lblNom.Text = "Nom :";
             // 
             // lblPriorite
             // 
             this.lblPriorite.AutoSize = true;
-            this.lblPriorite.Location = new System.Drawing.Point(242, 82);
+            this.lblPriorite.Location = new System.Drawing.Point(215, 66);
             this.lblPriorite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPriorite.Name = "lblPriorite";
-            this.lblPriorite.Size = new System.Drawing.Size(66, 20);
+            this.lblPriorite.Size = new System.Drawing.Size(61, 17);
             this.lblPriorite.TabIndex = 1;
             this.lblPriorite.Text = "Priorité :";
             this.lblPriorite.Click += new System.EventHandler(this.lblPriorite_Click);
@@ -75,71 +75,71 @@
             // lblNbInstructCalc
             // 
             this.lblNbInstructCalc.AutoSize = true;
-            this.lblNbInstructCalc.Location = new System.Drawing.Point(68, 136);
+            this.lblNbInstructCalc.Location = new System.Drawing.Point(60, 109);
             this.lblNbInstructCalc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNbInstructCalc.Name = "lblNbInstructCalc";
-            this.lblNbInstructCalc.Size = new System.Drawing.Size(236, 20);
+            this.lblNbInstructCalc.Size = new System.Drawing.Size(213, 17);
             this.lblNbInstructCalc.TabIndex = 2;
             this.lblNbInstructCalc.Text = "Nombre d\'instructions de calcul :";
             // 
             // lblNbInstructES
             // 
             this.lblNbInstructES.AutoSize = true;
-            this.lblNbInstructES.Location = new System.Drawing.Point(32, 189);
+            this.lblNbInstructES.Location = new System.Drawing.Point(28, 151);
             this.lblNbInstructES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNbInstructES.Name = "lblNbInstructES";
-            this.lblNbInstructES.Size = new System.Drawing.Size(275, 20);
+            this.lblNbInstructES.Size = new System.Drawing.Size(248, 17);
             this.lblNbInstructES.TabIndex = 3;
             this.lblNbInstructES.Text = "Nombre d\'instructions d\'entrée/sortie :";
             // 
             // lblNbCycle
             // 
             this.lblNbCycle.AutoSize = true;
-            this.lblNbCycle.Location = new System.Drawing.Point(18, 239);
+            this.lblNbCycle.Location = new System.Drawing.Point(16, 191);
             this.lblNbCycle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNbCycle.Name = "lblNbCycle";
-            this.lblNbCycle.Size = new System.Drawing.Size(286, 20);
+            this.lblNbCycle.Size = new System.Drawing.Size(261, 17);
             this.lblNbCycle.TabIndex = 4;
             this.lblNbCycle.Text = "Nombre de cycle(s) avant l\'initialisation :";
             // 
             // txtNom
             // 
-            this.txtNom.Location = new System.Drawing.Point(324, 29);
-            this.txtNom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtNom.Location = new System.Drawing.Point(288, 23);
+            this.txtNom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNom.Name = "txtNom";
-            this.txtNom.Size = new System.Drawing.Size(148, 26);
+            this.txtNom.Size = new System.Drawing.Size(132, 22);
             this.txtNom.TabIndex = 5;
             // 
             // numPriorite
             // 
-            this.numPriorite.Location = new System.Drawing.Point(324, 80);
-            this.numPriorite.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numPriorite.Location = new System.Drawing.Point(288, 64);
+            this.numPriorite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numPriorite.Name = "numPriorite";
-            this.numPriorite.Size = new System.Drawing.Size(150, 26);
+            this.numPriorite.Size = new System.Drawing.Size(132, 22);
             this.numPriorite.TabIndex = 10;
             // 
             // numNbCycle
             // 
-            this.numNbCycle.Location = new System.Drawing.Point(324, 235);
-            this.numNbCycle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numNbCycle.Location = new System.Drawing.Point(288, 188);
+            this.numNbCycle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numNbCycle.Name = "numNbCycle";
-            this.numNbCycle.Size = new System.Drawing.Size(150, 26);
+            this.numNbCycle.Size = new System.Drawing.Size(133, 22);
             this.numNbCycle.TabIndex = 11;
             // 
             // numNbInstructES
             // 
-            this.numNbInstructES.Location = new System.Drawing.Point(324, 186);
-            this.numNbInstructES.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numNbInstructES.Location = new System.Drawing.Point(288, 149);
+            this.numNbInstructES.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numNbInstructES.Name = "numNbInstructES";
-            this.numNbInstructES.Size = new System.Drawing.Size(150, 26);
+            this.numNbInstructES.Size = new System.Drawing.Size(133, 22);
             this.numNbInstructES.TabIndex = 12;
             // 
             // numNbInstructCalc
             // 
-            this.numNbInstructCalc.Location = new System.Drawing.Point(324, 134);
-            this.numNbInstructCalc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numNbInstructCalc.Location = new System.Drawing.Point(288, 107);
+            this.numNbInstructCalc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numNbInstructCalc.Name = "numNbInstructCalc";
-            this.numNbInstructCalc.Size = new System.Drawing.Size(150, 26);
+            this.numNbInstructCalc.Size = new System.Drawing.Size(133, 22);
             this.numNbInstructCalc.TabIndex = 13;
             // 
             // gbThread
@@ -147,11 +147,11 @@
             this.gbThread.Controls.Add(this.rdBtn3Thread);
             this.gbThread.Controls.Add(this.rdBtn2Thread);
             this.gbThread.Controls.Add(this.rdBtnMono);
-            this.gbThread.Location = new System.Drawing.Point(22, 302);
-            this.gbThread.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gbThread.Location = new System.Drawing.Point(20, 242);
+            this.gbThread.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbThread.Name = "gbThread";
-            this.gbThread.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbThread.Size = new System.Drawing.Size(451, 155);
+            this.gbThread.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbThread.Size = new System.Drawing.Size(401, 124);
             this.gbThread.TabIndex = 14;
             this.gbThread.TabStop = false;
             this.gbThread.Text = "Thread";
@@ -159,10 +159,10 @@
             // rdBtn3Thread
             // 
             this.rdBtn3Thread.AutoSize = true;
-            this.rdBtn3Thread.Location = new System.Drawing.Point(28, 111);
-            this.rdBtn3Thread.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rdBtn3Thread.Location = new System.Drawing.Point(25, 89);
+            this.rdBtn3Thread.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdBtn3Thread.Name = "rdBtn3Thread";
-            this.rdBtn3Thread.Size = new System.Drawing.Size(101, 24);
+            this.rdBtn3Thread.Size = new System.Drawing.Size(89, 21);
             this.rdBtn3Thread.TabIndex = 2;
             this.rdBtn3Thread.TabStop = true;
             this.rdBtn3Thread.Text = "3 threads";
@@ -171,10 +171,10 @@
             // rdBtn2Thread
             // 
             this.rdBtn2Thread.AutoSize = true;
-            this.rdBtn2Thread.Location = new System.Drawing.Point(28, 75);
-            this.rdBtn2Thread.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rdBtn2Thread.Location = new System.Drawing.Point(25, 60);
+            this.rdBtn2Thread.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdBtn2Thread.Name = "rdBtn2Thread";
-            this.rdBtn2Thread.Size = new System.Drawing.Size(101, 24);
+            this.rdBtn2Thread.Size = new System.Drawing.Size(89, 21);
             this.rdBtn2Thread.TabIndex = 1;
             this.rdBtn2Thread.TabStop = true;
             this.rdBtn2Thread.Text = "2 threads";
@@ -184,10 +184,10 @@
             // 
             this.rdBtnMono.AutoSize = true;
             this.rdBtnMono.Checked = true;
-            this.rdBtnMono.Location = new System.Drawing.Point(28, 39);
-            this.rdBtnMono.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rdBtnMono.Location = new System.Drawing.Point(25, 31);
+            this.rdBtnMono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rdBtnMono.Name = "rdBtnMono";
-            this.rdBtnMono.Size = new System.Drawing.Size(125, 24);
+            this.rdBtnMono.Size = new System.Drawing.Size(110, 21);
             this.rdBtnMono.TabIndex = 0;
             this.rdBtnMono.TabStop = true;
             this.rdBtnMono.Text = "Mono-thread";
@@ -195,10 +195,10 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(246, 497);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnOk.Location = new System.Drawing.Point(219, 398);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(112, 35);
+            this.btnOk.Size = new System.Drawing.Size(100, 28);
             this.btnOk.TabIndex = 15;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -206,10 +206,10 @@
             // 
             // btnAnnuler
             // 
-            this.btnAnnuler.Location = new System.Drawing.Point(368, 497);
-            this.btnAnnuler.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAnnuler.Location = new System.Drawing.Point(327, 398);
+            this.btnAnnuler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAnnuler.Name = "btnAnnuler";
-            this.btnAnnuler.Size = new System.Drawing.Size(112, 35);
+            this.btnAnnuler.Size = new System.Drawing.Size(100, 28);
             this.btnAnnuler.TabIndex = 16;
             this.btnAnnuler.Text = "Annuler";
             this.btnAnnuler.UseVisualStyleBackColor = true;
@@ -217,9 +217,9 @@
             // 
             // AddProcessForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 548);
+            this.ClientSize = new System.Drawing.Size(445, 445);
             this.Controls.Add(this.btnAnnuler);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.gbThread);
@@ -233,7 +233,7 @@
             this.Controls.Add(this.lblNbInstructCalc);
             this.Controls.Add(this.lblPriorite);
             this.Controls.Add(this.lblNom);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AddProcessForm";
             this.Text = "Ajout de Processus";
             ((System.ComponentModel.ISupportInitialize)(this.numPriorite)).EndInit();

@@ -14,15 +14,7 @@ namespace tp01_SE
     public partial class PrincipalForm : Form
     {
         List<Processus> lstProcessus;
-        Color[,] bgColors;
-        Boolean bgColorsOk = false;
         int rowCountMax = 0;
-        
-
-        //    Color[,] bgColors = new Color[2, 8] {
-        //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control },
-        //{ SystemColors.Control, SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control,SystemColors.Control, SystemColors.Control }
-        //    };
 
         public PrincipalForm()
         {
@@ -37,44 +29,41 @@ namespace tp01_SE
                             "Organisation: UQAR\n");
         }
 
-        private void btnLancer_Click(object sender, EventArgs e)
+        private void btnLancerPCA_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Lancement de la simulation");
+            MessageBox.Show("Lancement de la simulation PCA");
+            dgv_RAM.ClearSelection();
             //Algo principale
-            
+
             if (lstProcessus.Count > 1) 
             {               
                 List<Processus> orderedListProcessus3 = new List<Processus>();
-                orderedListProcessus3.AddRange(OrderListProcessus(lstProcessus));                
+                orderedListProcessus3.AddRange(OrderListProcessusPCA(lstProcessus));                
                 
                 launchProcessus(orderedListProcessus3);
             }
             else
             {
                 launchProcessus(this.lstProcessus);
-            }
+            } 
+        }
+
+        private void btnLancerPP_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Lancement de la simulation PP");
+            dgv_RAM.ClearSelection();
             
+            if (lstProcessus.Count > 1)
+            {
+                List<Processus> orderedListProcessus = new List<Processus>();
+                orderedListProcessus.AddRange(OrderListProcessusPP(lstProcessus));
 
-            ////Algo test
-            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
-            //updateCouleur();
-            //System.Threading.Thread.Sleep(3000);
-            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
-            //lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.EnCours;
-            //updateCouleur();
-            //System.Threading.Thread.Sleep(3000);
-            //lstProcessus.First().getThreads().First().getInstructions()[2].Etat = Enums.etat.Termine;
-            //updateCouleur();
-            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.EnCours;
-            //updateCouleur();
-            //System.Threading.Thread.Sleep(3000);
-            //lstProcessus.First().getThreads().First().getInstructions().First().Etat = Enums.etat.Termine;
-            //lstProcessus.First().getThreads().First().getInstructions()[1].Etat = Enums.etat.EnCours;
-            //updateCouleur();
-            //System.Threading.Thread.Sleep(3000);
-            //lstProcessus.First().getThreads().First().getInstructions()[1].Etat = Enums.etat.Termine;
-            //updateCouleur();
-
+                launchProcessusPP(orderedListProcessus);
+            }
+            else
+            {
+                launchProcessusPP(this.lstProcessus);
+            }
         }
 
         private void btnAjout_Click(object sender, EventArgs e)
@@ -86,7 +75,6 @@ namespace tp01_SE
 
         private void btnSup_Click(object sender, EventArgs e)
         {
-            bgColorsOk = false;
             Form form = new SupProcessForm(ref this.lstProcessus);
             form.ShowDialog();            
             this.displayLstThread();
@@ -95,76 +83,36 @@ namespace tp01_SE
 
         private void displayLstThread()
         {         
-            tblRAM.Controls.Clear();
-            tblRAM.RowCount = 1;
-            tblRAM.ColumnCount = 0;
+            int rowIndex = 1;
+            int columnIndex = 0;
+
+            updateSizeDgv_RAM();
+
             foreach (Processus process in this.lstProcessus)
-            {
-                tblRAM.RowCount = 1;
+            {   
                 foreach(Thread thread in process.getThreads())
                 {
-                    tblRAM.ColumnCount++;                    
-                    tblRAM.RowCount = 1;                                                                                                         
-                    tblRAM.RowStyles.Add(new RowStyle(SizeType.Absolute));                   
-                    Label lbl = new Label();
-                    lbl.Height = 70;
-                    lbl.BackColor = Color.Transparent;
-                    lbl.Text = thread.getInfoThread();
-                    tblRAM.Controls.Add(lbl, tblRAM.ColumnCount - 1, tblRAM.RowCount - 1);                                   
+                    
+                    rowIndex = 0;
+                   
+                    dgv_RAM.Columns[columnIndex].Name = thread.getInfoThread();
+                                  
                     foreach (Instruction instruct in thread.getInstructions())
-                    {                                               
-                        tblRAM.RowCount++;
-                        Label lbl2 = new Label();
-                        lbl2.Height = 25;
-                        lbl2.BackColor = Color.Transparent;
-                        lbl2.Text = instruct.Type.ToString();
-                        tblRAM.Controls.Add(lbl2, tblRAM.ColumnCount - 1, tblRAM.RowCount - 1);
-                        if (rowCountMax < tblRAM.RowCount)
+                    {
+                        if(rowIndex < thread.getInstructions().Count)
                         {
-                            rowCountMax = tblRAM.RowCount;
+                            dgv_RAM.Rows[rowIndex].Cells[columnIndex].Value = instruct.Type.ToString();
+                        } 
+                        else
+                        {
+                            dgv_RAM.Rows[rowIndex].Cells[columnIndex].Value = "";
                         }
+                        rowIndex++;
                     }
+                    columnIndex++;
                 }
             }
-            TableLayoutRowStyleCollection styles = tblRAM.RowStyles;
-            foreach (RowStyle style in styles)
-            {
-                if (style.SizeType == SizeType.Absolute)
-                {
-                    style.Height = 30;
-                }
-                else
-                {
-                    style.Height = 100;
-                }
-            }
-            createCellColor(tblRAM.ColumnCount, rowCountMax + 1);
-        }
-        private void createCellColor(int column, int row)
-        {
-            bgColors = new Color[column, row];
-            for (int i = 0; i < column; i++)
-            {                
-                for (int y = 0; y < row; y++)
-                {
-                    bgColors[i, y] = SystemColors.Control;
-                }                
-            }
-            bgColorsOk = true;
-            tblRAM.Refresh();
-            bgColorsOk = false;
-        }          
-
-        private void tblRAM_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {          
-            if (bgColorsOk == true && lstProcessus.Count !=0)
-            {                
-                using (var b = new SolidBrush(bgColors[e.Column, e.Row]))
-                {
-                    e.Graphics.FillRectangle(b, e.CellBounds);
-                }                
-            }
-        }
+        }         
 
         private void updateCouleur()
         {
@@ -173,42 +121,36 @@ namespace tp01_SE
             {                
                 foreach (Thread thread in process.getThreads())
                 {
-                    int row = 1;
+                    int row = 0;
                     foreach (Instruction instruction in thread.getInstructions())
                     {                        
-                        if (instruction.Etat.Equals(Enums.etat.EnCours))
+                        if (instruction.Etat.Equals(Enums.etatInstruction.EnCours))
                         {
-                            bgColors[column, row] = Color.Red;
-                            bgColorsOk = true;
-                            tblRAM.Refresh();
+                            dgv_RAM.Rows[row].Cells[column].Style.BackColor = Color.Red;
                         }
-                        if (instruction.Etat.Equals(Enums.etat.Termine))
+                        if (instruction.Etat.Equals(Enums.etatInstruction.Termine))
                         {
-                            bgColors[column, row] = Color.LightGray;
-                            bgColorsOk = true;
-                            tblRAM.Refresh();
+                            dgv_RAM.Rows[row].Cells[column].Style.BackColor = Color.LightGray;
                         }
-                        if (instruction.Etat.Equals(Enums.etat.Initialise))
+                        if (instruction.Etat.Equals(Enums.etatInstruction.Initialise))
                         {
-                            bgColors[column, row] = Color.Blue;
-                            bgColorsOk = true;
-                            tblRAM.Refresh();
+                            dgv_RAM.Rows[row].Cells[column].Style.BackColor = Color.White;
                         }
+                        
                         row++;
                     }
                     column++;
                 }
-            }
-            bgColorsOk = false;
+            }           
+            dgv_RAM.Refresh();
         }
-        private List<Processus> OrderListProcessus(List<Processus> newlistProcessus)
+        private List<Processus> OrderListProcessusPCA(List<Processus> newlistProcessus)
         {
             List<Processus> newlist = new List<Processus>();
             newlist.AddRange(newlistProcessus);
 
             int lenght = newlistProcessus.Count;
-            int i = 0;
-            label1.Text = "";
+            int i = 0;            
             while (lenght>0)
             {
                 for (i = 0; i < lenght - 1; i++)
@@ -220,8 +162,30 @@ namespace tp01_SE
                         newlist[i + 1] = processus;
                     }
                 }
-                lenght = lenght - 1;
-                label1.Text=label1.Text+"\n Processus: "+ newlist[i].getName() + "    EstimatedTime: "+ newlist[i].getEstimatedExecutionTime();
+                lenght = lenght - 1;                
+            }
+            return newlist;
+        }
+
+        private List<Processus> OrderListProcessusPP(List<Processus> newlistProcessus)
+        {
+            List<Processus> newlist = new List<Processus>();
+            newlist.AddRange(newlistProcessus);
+
+            int lenght = newlistProcessus.Count;
+            int i = 0;           
+            while (lenght > 0)
+            {
+                for (i = 0; i < lenght - 1; i++)
+                {
+                    if (newlist[i].getPriorite()< newlist[i + 1].getPriorite())
+                    {
+                        Processus processus = newlist[i];
+                        newlist[i] = newlist[i + 1];
+                        newlist[i + 1] = processus;
+                    }
+                }
+                lenght = lenght - 1;              
             }
             return newlist;
         }
@@ -234,13 +198,64 @@ namespace tp01_SE
                 {
                     foreach(Instruction instruction in thread.getInstructions())
                     {
-                        instruction.Etat = Enums.etat.EnCours;
+                        instruction.Etat = Enums.etatInstruction.EnCours;
                         updateCouleur();
                         sleep(instruction);
-                        instruction.Etat = Enums.etat.Termine;
+                        instruction.Etat = Enums.etatInstruction.Termine;
                         updateCouleur();
                     }
                 }
+            }
+        }
+        private void launchProcessusPP(List<Processus> orderedListPRocessus)
+        {
+            int i = 0;
+            int index = 0;
+            while (i < rowCountMax)
+            {
+                int indexThread = 0;
+                foreach (Processus processus in orderedListPRocessus)
+                { 
+                    foreach (Thread thread in processus.getThreads())
+                    {
+                        int OrdreInfoThreadAffiche = 0;
+                        foreach (Processus processusAffiche in lstProcessus)
+                        {                            
+                            foreach (Thread threadAffiche in processusAffiche.getThreads())
+                            {
+                                if(threadAffiche.Equals(thread))
+                                {
+                                    indexThread = OrdreInfoThreadAffiche;
+                                }
+                                OrdreInfoThreadAffiche++;
+                            }
+                        }                           
+                        if (thread.getInstructions().Count > i)
+                        {
+                            thread.setEtat(Enums.etatThread.Actif);
+                            dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+
+                            Instruction instruction = thread.getInstructions()[index];
+                            instruction.Etat = Enums.etatInstruction.EnCours;
+                            updateCouleur();
+                            sleep(instruction);
+                            instruction.Etat = Enums.etatInstruction.Termine;
+                            updateCouleur();
+                            
+                            if(thread.getInstructions().Count-1 == i)
+                            {
+                                thread.setEtat(Enums.etatThread.Termine);
+                            }
+                            else
+                            {
+                                thread.setEtat(Enums.etatThread.Bloque);
+                            }
+                            dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();                            
+                        }                        
+                    }                    
+                }
+                index++;
+                i++;
             }
         }
 
@@ -255,6 +270,45 @@ namespace tp01_SE
                 System.Threading.Thread.Sleep(3000);
             }
         }
+        
+        private void updateSizeDgv_RAM()
+        {
+            dgv_RAM.Rows.Clear();
+            int columnCount = 0;            
+            
+            foreach (Processus process in this.lstProcessus)
+            {
+                foreach (Thread thread in process.getThreads())
+                {
+                    columnCount++;
+                    int rowCount = 0;
+                    foreach(Instruction instruction in thread.getInstructions())
+                    {
+                        rowCount++;
+                        if (rowCountMax < rowCount)
+                        {
+                            rowCountMax = rowCount;
+                        }
+                    }
+                }
+            }
+            dgv_RAM.RowCount = rowCountMax;
+            dgv_RAM.ColumnCount = columnCount;
+        }
 
+        private void btn_reinitialiser_Click(object sender, EventArgs e)
+        {
+            foreach (Processus process in this.lstProcessus)
+            {
+                foreach (Thread thread in process.getThreads())
+                {                   
+                    foreach (Instruction instruction in thread.getInstructions())
+                    {
+                        instruction.Etat = Enums.etatInstruction.Initialise;                       
+                    }
+                }
+            }
+            updateCouleur();
+        }
     }
 }

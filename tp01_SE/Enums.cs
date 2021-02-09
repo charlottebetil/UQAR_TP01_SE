@@ -13,10 +13,18 @@ namespace tp01_SE
             EntreeSortie,
             Calcul
         }
-        public enum etat
+        public enum etatInstruction
         {
             Initialise,
             EnCours,
+            Termine
+        }
+
+        public enum etatThread
+        {
+            Initialise,
+            Actif,
+            Bloque,
             Termine
         }
     }
