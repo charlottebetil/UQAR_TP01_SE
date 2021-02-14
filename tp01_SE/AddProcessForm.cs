@@ -19,11 +19,6 @@ namespace tp01_SE
             this.lstProcessus = lstProcessus;
         }
 
-        private void lblPriorite_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private int nbThread()
         {
 
@@ -41,7 +36,7 @@ namespace tp01_SE
 
         private bool checkInputFilled()
         {
-            if (this.txtNom.Text == "" || this.numPriorite.Value == 0  || this.numNbInstructCalc.Value == 0 || this.numNbInstructES.Value == 0 || this.numNbCycle.Value == 0)
+            if (this.txtNom.Text == "" || this.numNbInstructCalc.Value + this.numNbInstructES.Value < this.nbThread())
             {
                 return (false);
             }
@@ -53,7 +48,7 @@ namespace tp01_SE
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            Processus currentProcessus = new Processus(this.lstProcessus.Count() + 1 , this.txtNom.Text, Convert.ToInt32(this.numPriorite.Value), this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.numNbCycle.Value, this.nbThread());
+            Processus currentProcessus = new Processus(this.lstProcessus.Count() + 1 , this.txtNom.Text, Convert.ToInt32(this.numPriorite.Value), this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.nbThread());
             if (this.checkInputFilled())
             {
                 this.lstProcessus.Add(currentProcessus);

@@ -22,7 +22,15 @@ namespace tp01_SE
 
         public enum etatThread
         {
-            Initialise,
+            Pret,
+            Actif,
+            Bloque,
+            Termine
+        }
+
+        public enum etatProcessus
+        {
+            Pret,
             Actif,
             Bloque,
             Termine

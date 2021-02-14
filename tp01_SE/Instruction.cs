@@ -10,13 +10,21 @@ namespace tp01_SE
     {
         private Enums.etatInstruction etat;
         private Enums.type type;
+        private int nbrSecondeBloquee;
 
         public Instruction(Enums.type type)
         {
-
             this.etat = Enums.etatInstruction.Initialise;
             this.type = type;
             
+            if (type.Equals(Enums.type.EntreeSortie))
+            {
+                this.nbrSecondeBloquee = 3;
+            }
+            else
+            {
+                this.nbrSecondeBloquee = 0;
+            }                        
         }
         public Enums.etatInstruction Etat
         {
@@ -27,6 +35,12 @@ namespace tp01_SE
         {
             get { return type; }
             set { this.type = value; }
+        }
+
+        public int NbrSecondeBloquee
+        {
+            get { return nbrSecondeBloquee; }
+            set { this.nbrSecondeBloquee = value; }
         }
 
     }

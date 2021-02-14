@@ -12,23 +12,25 @@ namespace tp01_SE
         private int PID;
         private string nom;
         private int priorite;
+        private int prioriteInitiale;
         private decimal nbInstructCalc;
         private decimal nbInstructES;
-        private decimal nbCycle;
         private int estimatedExecutionTime;
         public int nbThread;
+        private Enums.etatProcessus etat;
         private List<Thread> lstThread = new List<Thread>();
-        public Processus(int PID, string nom, int priorite, decimal nbInstructCalc, decimal nbInstructES, decimal nbCycle, int nbThread)
+        public Processus(int PID, string nom, int priorite, decimal nbInstructCalc, decimal nbInstructES, int nbThread)
         {
             this.PID = PID;
             this.nom = nom;
             this.priorite = priorite;
             this.nbInstructCalc = nbInstructCalc;
-            this.nbInstructES = nbInstructES;
-            this.nbCycle = nbCycle;
+            this.nbInstructES = nbInstructES;         
             this.nbThread = nbThread;
             this.initLstThread();
             this.calculateEstimatedExecutionTime();
+            this.etat = Enums.etatProcessus.Pret;
+            this.prioriteInitiale = priorite;
         }
 
         public string getName() 
@@ -40,7 +42,15 @@ namespace tp01_SE
         {
             return (this.lstThread);
         }
-        
+        public Enums.etatProcessus getEtat()
+        {
+            return (this.etat);
+        }
+        public void setEtat(Enums.etatProcessus etat)
+        {
+            this.etat = etat;
+        }
+
         public void initLstThread()
         {           
             for (int i = 0; i < this.nbThread; i++)
@@ -83,8 +93,13 @@ namespace tp01_SE
             return lstInstructions;
         }
 
+        public int getExecutionTime()
+        {
+            return (this.estimatedExecutionTime);
+        }
         public int getEstimatedExecutionTime()
         {
+            this.calculateEstimatedExecutionTime();
             return (this.estimatedExecutionTime);
         }
 
@@ -93,22 +108,24 @@ namespace tp01_SE
             return (this.priorite);
         }
 
+        public void setPriorite()
+        {
+            this.priorite--;
+        }
+
+        public void reinitialiserPriorite()
+        {
+            this.priorite = this.prioriteInitiale;
+        }
+
         private void calculateEstimatedExecutionTime()
-        {            
-            foreach(Thread thread in this.lstThread)
+        {
+            this.estimatedExecutionTime = 0;
+            foreach (Thread thread in this.lstThread)
             {
-                foreach(Instruction instruction in thread.getInstructions())
-                {
-                    if(instruction.Type == Enums.type.Calcul)
-                    {
-                        this.estimatedExecutionTime +=1;
-                    }
-                    else
-                    {
-                        this.estimatedExecutionTime +=3;
-                    }
-                }
+                estimatedExecutionTime += thread.getEstimatedExecutionTime();
             }            
         }
+        
     }
 }
