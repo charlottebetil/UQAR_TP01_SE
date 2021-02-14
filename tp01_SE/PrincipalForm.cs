@@ -23,6 +23,7 @@ namespace tp01_SE
             InitializeComponent();
             this.lstProcessus = new List<Processus>();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             MessageBox.Show("Bienvenue sur l'outil: Ordonnanceur\n" +
@@ -34,8 +35,7 @@ namespace tp01_SE
         private void btnLancerPCA_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Lancement de la simulation PCA");
-            dgv_RAM.ClearSelection();      
-
+            dgv_RAM.ClearSelection();             
             if (lstProcessus.Count >= 1) 
             {
                 executePCA = true;
@@ -52,8 +52,7 @@ namespace tp01_SE
         private void btnLancerPP_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Lancement de la simulation PP");
-            dgv_RAM.ClearSelection();
-            
+            dgv_RAM.ClearSelection();            
             if (lstProcessus.Count >= 1)
             {
                 List<Processus> orderedListProcessus3 = new List<Processus>();
@@ -84,17 +83,13 @@ namespace tp01_SE
         {         
             int rowIndex = 1;
             int columnIndex = 0;
-
             updateSizeDgv_RAM();
-
             foreach (Processus process in this.lstProcessus)
             {   
                 foreach(Thread thread in process.getThreads())
                 {                    
-                    rowIndex = 0;
-                   
-                    dgv_RAM.Columns[columnIndex].Name = thread.getInfoThread();
-                                  
+                    rowIndex = 0;                   
+                    dgv_RAM.Columns[columnIndex].Name = thread.getInfoThread(process);                                  
                     foreach (Instruction instruct in thread.getInstructions())
                     {
                         if(rowIndex < thread.getInstructions().Count)
@@ -141,10 +136,10 @@ namespace tp01_SE
             }           
             dgv_RAM.Refresh();
         }
+
         private List<Processus> OrderListProcessusPCA(List<Processus> newlistProcessus)
         {
             List<Processus> newList = new List<Processus>();            
-
             foreach(Processus processus in newlistProcessus)
             {
                 if (Enums.etatProcessus.Pret.Equals(processus.getEtat()))
@@ -152,9 +147,7 @@ namespace tp01_SE
                     newList.Add(processus);
                 }
             }
-
-            int lenght = newList.Count;
-                    
+            int lenght = newList.Count;                    
             while (lenght > 0)
             {
                 for (int i = 0; i < lenght - 1; i++)
@@ -178,7 +171,6 @@ namespace tp01_SE
         private List<Processus> OrderListProcessusPP(List<Processus> newlistProcessus)
         {
             List<Processus> newList = new List<Processus>();
-
             foreach (Processus processus in newlistProcessus)
             {
                 if (Enums.etatProcessus.Pret.Equals(processus.getEtat()))
@@ -208,8 +200,7 @@ namespace tp01_SE
         }       
 
         private void launchProcessus(List<Processus> orderedListPRocessus) 
-        {
-            int indexThread = 0;
+        {           
             bool flag = false;
             bool termine = false;
             bool pasTermine = false;
@@ -245,13 +236,12 @@ namespace tp01_SE
                             if (flag)
                             {
                                 break;
-                            }
-                            indexThread = getThreadAffiche(thread);
+                            }                        
                             if (thread.getEstimatedExecutionTime() == 0)
                             {
                                 thread.setEtat(Enums.etatThread.Termine);                                                                                                                           
                             }
-                            dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+                            updateInfoThread(processus);
                             foreach (Instruction instruction in thread.getInstructions())
                             {                                
                                 if (instruction.Etat != Enums.etatInstruction.Termine)
@@ -260,7 +250,7 @@ namespace tp01_SE
                                     if (instruction.Type == Enums.type.EntreeSortie)
                                     {
                                         orderedListProcessus2.Clear();
-                                        orderedListProcessus2.AddRange(executerES(instruction, thread, processus, indexThread));
+                                        orderedListProcessus2.AddRange(executerES(instruction, thread, processus));
                                         termine = validerSiTermine();
                                         flag = true;
                                         justeCalcul = false;
@@ -268,7 +258,7 @@ namespace tp01_SE
                                     }
                                     else
                                     {
-                                        executerCalcul(instruction, thread, processus, indexThread);
+                                        executerCalcul(instruction, thread, processus);
                                         justeCalcul = true;
                                     }
                                 }
@@ -277,8 +267,7 @@ namespace tp01_SE
                             if (thread.getEstimatedExecutionTime() == 0 && justeCalcul == true)
                             {
                                 thread.setEtat(Enums.etatThread.Termine);
-                                indexThread = getThreadAffiche(thread);
-                                dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();                                
+                                updateInfoThread(processus);
                             }
                         }
                         if (processus.getEstimatedExecutionTime() == 0 && justeCalcul == true)
@@ -287,8 +276,7 @@ namespace tp01_SE
                             foreach (Thread thread in processus.getThreads())
                             {
                                 thread.setEtat(Enums.etatThread.Termine);
-                                indexThread = getThreadAffiche(thread);
-                                dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+                                updateInfoThread(processus);
                             }
                         }
                         justeCalcul = false;
@@ -337,8 +325,7 @@ namespace tp01_SE
                 }
                 updateCouleur();
             }
-        }
-       
+        }       
 
         private void sleep()
         {
@@ -348,8 +335,7 @@ namespace tp01_SE
         private void updateSizeDgv_RAM()
         {
             dgv_RAM.Rows.Clear();
-            int columnCount = 0;            
-            
+            int columnCount = 0;                        
             foreach (Processus process in this.lstProcessus)
             {
                 foreach (Thread thread in process.getThreads())
@@ -382,7 +368,7 @@ namespace tp01_SE
                 {
                     thread.setEtat(Enums.etatThread.Pret);
                     thread.reinitialiserPriorite();
-                    dgv_RAM.Columns[getThreadAffiche(thread)].Name = thread.getInfoThread();
+                    updateInfoThread(process);
                     foreach (Instruction instruction in thread.getInstructions())
                     {
                         instruction.Etat = Enums.etatInstruction.Initialise;
@@ -437,7 +423,7 @@ namespace tp01_SE
                                     instruction.Etat = Enums.etatInstruction.Termine;
                                     process.setEtat(Enums.etatProcessus.Pret);
                                     thread.setEtat(Enums.etatThread.Pret);
-                                    dgv_RAM.Columns[getThreadAffiche(thread)].Name = thread.getInfoThread();
+                                    updateInfoThread(process);
                                 }                                
                             }                            
                         }
@@ -446,13 +432,12 @@ namespace tp01_SE
             }
         }    
 
-        private List<Processus> executerES(Instruction instruction, Thread thread, Processus processus, int indexThread)
+        private List<Processus> executerES(Instruction instruction, Thread thread, Processus processus)
         {
             instruction.Etat = Enums.etatInstruction.EnCours;
             processus.setEtat(Enums.etatProcessus.Bloque);                        
-            thread.setEtat(Enums.etatThread.Bloque);                 
-            
-            dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+            thread.setEtat(Enums.etatThread.Bloque);
+            updateInfoThread(processus);
             updateCouleur();
             decrementerTempsESBloque();
             sleep();
@@ -466,13 +451,13 @@ namespace tp01_SE
             }
         }
 
-        private void executerCalcul(Instruction instruction, Thread thread, Processus processus, int indexThread)
+        private void executerCalcul(Instruction instruction, Thread thread, Processus processus)
         {
             processus.setEtat(Enums.etatProcessus.Actif);
             thread.setEtat(Enums.etatThread.Actif);
             instruction.Etat = Enums.etatInstruction.EnCours;
             decrementerTempsESBloque();
-            dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+            updateInfoThread(processus);
             updateCouleur();
             sleep();
             instruction.Etat = Enums.etatInstruction.Termine;
@@ -492,18 +477,26 @@ namespace tp01_SE
         }
 
         private void decrementerPriorite(Processus processus)
-        {
-            int indexThread = 0;
+        {           
             if(executePCA == false)
             {
                 processus.setPriorite();
                 foreach (Thread thread in processus.getThreads())
                 {
                     thread.setPriorite();
-                    indexThread = getThreadAffiche(thread);
-                    dgv_RAM.Columns[indexThread].Name = thread.getInfoThread();
+                    updateInfoThread(processus);
                 }
             }
+        }
+
+        private void updateInfoThread(Processus processus)
+        {
+            int indexThread = 0;
+            foreach(Thread thread in processus.getThreads())
+            {
+                indexThread = getThreadAffiche(thread);
+                dgv_RAM.Columns[indexThread].Name = thread.getInfoThread(processus);
+            }           
         }
     }
 }

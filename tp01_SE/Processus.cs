@@ -25,7 +25,7 @@ namespace tp01_SE
             this.nom = nom;
             this.priorite = priorite;
             this.nbInstructCalc = nbInstructCalc;
-            this.nbInstructES = nbInstructES;         
+            this.nbInstructES = nbInstructES;
             this.nbThread = nbThread;
             this.initLstThread();
             this.calculateEstimatedExecutionTime();
@@ -33,7 +33,7 @@ namespace tp01_SE
             this.prioriteInitiale = priorite;
         }
 
-        public string getName() 
+        public string getName()
         {
             return (this.nom);
         }
@@ -42,40 +42,39 @@ namespace tp01_SE
         {
             return (this.lstThread);
         }
+
         public Enums.etatProcessus getEtat()
         {
             return (this.etat);
         }
+
         public void setEtat(Enums.etatProcessus etat)
         {
             this.etat = etat;
         }
 
         public void initLstThread()
-        {           
+        {
             for (int i = 0; i < this.nbThread; i++)
             {
                 List<Instruction> emptyLstInstructions = new List<Instruction>();
                 Thread thread = new Thread(this.nom, this.PID, this.priorite, i, emptyLstInstructions);
                 lstThread.Add(thread);
             }
-                
             List<Instruction> lstInstructions = new List<Instruction>();
             lstInstructions = createLstInstructions();
-
             int y = 0;
             foreach (Instruction instruction in lstInstructions)
-            {                    
+            {
                 this.lstThread[y].setInstructions(instruction);
                 y++;
-
                 if (y >= this.nbThread)
                 {
                     y = 0;
-                }                        
+                }
             }
         }
-     
+
         public List<Instruction> createLstInstructions()
         {
             List<Instruction> lstInstructions = new List<Instruction>();
@@ -90,6 +89,7 @@ namespace tp01_SE
                 Instruction instruction = new Instruction(Enums.type.EntreeSortie);
                 lstInstructions.Add(instruction);
             }
+            lstInstructions.Shuffle();
             return lstInstructions;
         }
 
@@ -97,6 +97,7 @@ namespace tp01_SE
         {
             return (this.estimatedExecutionTime);
         }
+
         public int getEstimatedExecutionTime()
         {
             this.calculateEstimatedExecutionTime();
@@ -124,8 +125,24 @@ namespace tp01_SE
             foreach (Thread thread in this.lstThread)
             {
                 estimatedExecutionTime += thread.getEstimatedExecutionTime();
-            }            
+            }
+        }        
+    }
+
+    public static class ShuffleInstructions        
+    {
+        private static Random rng = new Random();
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
-        
     }
 }

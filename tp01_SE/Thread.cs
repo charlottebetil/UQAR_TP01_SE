@@ -28,13 +28,14 @@ namespace tp01_SE
             this.prioriteInitiale = priorite;
         }
 
-        public string getInfoThread()
+        public string getInfoThread(Processus processus)
         {
-            string infos = "Processus: " + this.processNom + "\n\t";
+            string infos = "NomProcessus: " + this.processNom + "\n\t";
             infos += "PID: " + this.PID + "\n\t";
             infos += "TID: " + this.TID + "\n\t";
-            infos += "Priorité: " + this.priorite + "\n\t";
-            infos += "Etat: "+ this.etat;
+            infos += "PrioriteProcessus: " + this.priorite + "\n\t";
+            infos += "EtatProcessus: " + processus.getEtat() + "\n\t";
+            infos += "EtatThread: "+ this.etat;
             return (infos);
         }
         public List<Instruction> getInstructions()
