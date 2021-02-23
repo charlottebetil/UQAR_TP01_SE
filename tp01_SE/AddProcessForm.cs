@@ -13,6 +13,7 @@ namespace tp01_SE
     public partial class AddProcessForm : Form
     {
         private List<Processus> lstProcessus;
+        public static bool annuler = false;
         public AddProcessForm(ref List<Processus> lstProcessus)
         {
             InitializeComponent();
@@ -21,7 +22,6 @@ namespace tp01_SE
 
         private int nbThread()
         {
-
             if (this.rdBtnMono.Checked) {
                 return (1);
             } else if (this.rdBtn2Thread.Checked)
@@ -34,6 +34,7 @@ namespace tp01_SE
              return (1);
         }
 
+        // Vérifier les infos d'ajout d'un processus
         private bool checkInputFilled()
         {
             if (this.txtNom.Text == "" || this.numNbInstructCalc.Value + this.numNbInstructES.Value < this.nbThread())
@@ -46,9 +47,19 @@ namespace tp01_SE
             }
         }
 
+        // Ajouter le processus quand on clique sur ok
         private void btnOk_Click(object sender, EventArgs e)
         {
-            Processus currentProcessus = new Processus(this.lstProcessus.Count() + 1 , this.txtNom.Text, Convert.ToInt32(this.numPriorite.Value), this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.nbThread());
+            int indiceTID = -1;
+            foreach(Processus processus in lstProcessus)
+            {
+                foreach(Thread thread in processus.getThreads())
+                {
+                    indiceTID++;
+                }
+            }
+
+            Processus currentProcessus = new Processus(this.lstProcessus.Count() , this.txtNom.Text, Convert.ToInt32(this.numPriorite.Value), this.numNbInstructCalc.Value, this.numNbInstructES.Value, this.nbThread(), indiceTID);
             if (this.checkInputFilled())
             {
                 this.lstProcessus.Add(currentProcessus);
@@ -60,8 +71,10 @@ namespace tp01_SE
             }
         }
 
+        // Annuler l'ajout d'un processus
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
+            annuler = true;
             this.Close();
         }
     }

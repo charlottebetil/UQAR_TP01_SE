@@ -42,8 +42,7 @@
             this.lstProcessusAnnule.Name = "lstProcessusAnnule";
             this.lstProcessusAnnule.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstProcessusAnnule.Size = new System.Drawing.Size(319, 224);
-            this.lstProcessusAnnule.TabIndex = 0;
-            this.lstProcessusAnnule.SelectedIndexChanged += new System.EventHandler(this.lstProcessusAnnule_SelectedIndexChanged);
+            this.lstProcessusAnnule.TabIndex = 0;        
             // 
             // btnOk
             // 

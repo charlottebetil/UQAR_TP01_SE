@@ -20,6 +20,7 @@ namespace tp01_SE
             this.displayLstProcess();
         }
 
+        // Reconstruire la liste des processus
         private void displayLstProcess()
         {
             this.lstProcessusAnnule.BeginUpdate();
@@ -28,19 +29,9 @@ namespace tp01_SE
                 this.lstProcessusAnnule.Items.Add(process.getName());
             }
             this.lstProcessusAnnule.EndUpdate();
-        }
+        }       
 
-        /*private void updateLstProcessus(ListBox currentElem) 
-        {
-            for (int i = currentElem.Items.Count - 1; i >= 0; i--)
-            {
-                Processus currentProcess = (Processus)currentElem[i];
-
-            }
-
-        }*/
-
-
+        // Confirmer la suppression d'un processsus
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (this.lstProcessusAnnule.SelectedItem != null) {
@@ -54,15 +45,10 @@ namespace tp01_SE
             }
         }
 
-
+        // Annuler la suppression d'un processus
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void lstProcessusAnnule_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        }       
     }
 }

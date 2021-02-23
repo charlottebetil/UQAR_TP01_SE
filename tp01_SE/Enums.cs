@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace tp01_SE
 {
+    // Classe d'énumération des états
     public class Enums
     {
         public enum type

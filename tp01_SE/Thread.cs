@@ -28,6 +28,7 @@ namespace tp01_SE
             this.prioriteInitiale = priorite;
         }
 
+        // Obtenir les infos d'un thread
         public string getInfoThread(Processus processus)
         {
             string infos = "NomProcessus: " + this.processNom + "\n\t";
@@ -38,36 +39,51 @@ namespace tp01_SE
             infos += "EtatThread: "+ this.etat;
             return (infos);
         }
+
+        // Obtenir les instructions d'un thread
         public List<Instruction> getInstructions()
         {
             return (this.lstInstructions);
         }
+
+        // Ajouter une instruction au thread
         public void setInstructions(Instruction instruction)
         {
             this.lstInstructions.Add(instruction);
         }
+
+        // Changer l'état d'un thread
         public void setEtat(Enums.etatThread etat)
         {
             this.etat = etat;
         }
+
+        // Obtenir l'état d'un thread
         public Enums.etatThread getEtat()
         {
             return (this.etat);
         }
 
+        // Obtenir le temps d'exécution d'un thread
         public int getEstimatedExecutionTime()
         {
             this.calculateEstimatedExecutionTime();
             return (this.estimatedExecutionTime);
         }
+
+        // Décrémenter la priorité d'un thread
         public void setPriorite()
         {
             this.priorite--;
         }
+
+        // Réinitialiser la priorité d'un thread
         public void reinitialiserPriorite()
         {
             this.priorite = this.prioriteInitiale;
         }
+
+        // Calculer le temps d'exécution d'un thread
         private void calculateEstimatedExecutionTime()
         {
             this.estimatedExecutionTime = 0;            

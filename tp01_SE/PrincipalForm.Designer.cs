@@ -1,6 +1,6 @@
 ﻿namespace tp01_SE
 {
-    partial class PrincipalForm
+    partial class principalForm
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gBoxProcessus = new System.Windows.Forms.GroupBox();
             this.btnSup = new System.Windows.Forms.Button();
             this.btnAjout = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gBoxSimulation = new System.Windows.Forms.GroupBox();
             this.btn_reinitialiser = new System.Windows.Forms.Button();
             this.btnLancerPP = new System.Windows.Forms.Button();
             this.btnLancerPCA = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gBoxRAM = new System.Windows.Forms.GroupBox();
             this.dgv_RAM = new System.Windows.Forms.DataGridView();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.gBoxProcessus.SuspendLayout();
+            this.gBoxSimulation.SuspendLayout();
+            this.gBoxRAM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_RAM)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // gBoxProcessus
             // 
-            this.groupBox1.Controls.Add(this.btnSup);
-            this.groupBox1.Controls.Add(this.btnAjout);
-            this.groupBox1.Location = new System.Drawing.Point(16, 14);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(199, 110);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Processus";
+            this.gBoxProcessus.Controls.Add(this.btnSup);
+            this.gBoxProcessus.Controls.Add(this.btnAjout);
+            this.gBoxProcessus.Location = new System.Drawing.Point(16, 14);
+            this.gBoxProcessus.Margin = new System.Windows.Forms.Padding(4);
+            this.gBoxProcessus.Name = "gBoxProcessus";
+            this.gBoxProcessus.Padding = new System.Windows.Forms.Padding(4);
+            this.gBoxProcessus.Size = new System.Drawing.Size(199, 110);
+            this.gBoxProcessus.TabIndex = 2;
+            this.gBoxProcessus.TabStop = false;
+            this.gBoxProcessus.Text = "Processus";
             // 
             // btnSup
             // 
@@ -78,19 +78,19 @@
             this.btnAjout.UseVisualStyleBackColor = true;
             this.btnAjout.Click += new System.EventHandler(this.btnAjout_Click);
             // 
-            // groupBox2
+            // gBoxSimulation
             // 
-            this.groupBox2.Controls.Add(this.btn_reinitialiser);
-            this.groupBox2.Controls.Add(this.btnLancerPP);
-            this.groupBox2.Controls.Add(this.btnLancerPCA);
-            this.groupBox2.Location = new System.Drawing.Point(234, 14);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(400, 116);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Simulation";
+            this.gBoxSimulation.Controls.Add(this.btn_reinitialiser);
+            this.gBoxSimulation.Controls.Add(this.btnLancerPP);
+            this.gBoxSimulation.Controls.Add(this.btnLancerPCA);
+            this.gBoxSimulation.Location = new System.Drawing.Point(234, 14);
+            this.gBoxSimulation.Margin = new System.Windows.Forms.Padding(4);
+            this.gBoxSimulation.Name = "gBoxSimulation";
+            this.gBoxSimulation.Padding = new System.Windows.Forms.Padding(4);
+            this.gBoxSimulation.Size = new System.Drawing.Size(400, 116);
+            this.gBoxSimulation.TabIndex = 3;
+            this.gBoxSimulation.TabStop = false;
+            this.gBoxSimulation.Text = "Simulation";
             // 
             // btn_reinitialiser
             // 
@@ -125,17 +125,17 @@
             this.btnLancerPCA.UseVisualStyleBackColor = true;
             this.btnLancerPCA.Click += new System.EventHandler(this.btnLancerPCA_Click);
             // 
-            // groupBox3
+            // gBoxRAM
             // 
-            this.groupBox3.Controls.Add(this.dgv_RAM);
-            this.groupBox3.Location = new System.Drawing.Point(16, 132);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(1285, 447);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "RAM";
+            this.gBoxRAM.Controls.Add(this.dgv_RAM);
+            this.gBoxRAM.Location = new System.Drawing.Point(16, 132);
+            this.gBoxRAM.Margin = new System.Windows.Forms.Padding(4);
+            this.gBoxRAM.Name = "gBoxRAM";
+            this.gBoxRAM.Padding = new System.Windows.Forms.Padding(4);
+            this.gBoxRAM.Size = new System.Drawing.Size(1285, 447);
+            this.gBoxRAM.TabIndex = 3;
+            this.gBoxRAM.TabStop = false;
+            this.gBoxRAM.Text = "RAM";
             // 
             // dgv_RAM
             // 
@@ -147,21 +147,21 @@
             this.dgv_RAM.Size = new System.Drawing.Size(1269, 418);
             this.dgv_RAM.TabIndex = 1;
             // 
-            // PrincipalForm
+            // principalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1314, 602);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gBoxRAM);
+            this.Controls.Add(this.gBoxSimulation);
+            this.Controls.Add(this.gBoxProcessus);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "PrincipalForm";
+            this.Name = "principalForm";
             this.Text = "Ordonnanceur";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.principalForm_Load);
+            this.gBoxProcessus.ResumeLayout(false);
+            this.gBoxSimulation.ResumeLayout(false);
+            this.gBoxRAM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_RAM)).EndInit();
             this.ResumeLayout(false);
 
@@ -169,12 +169,12 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gBoxProcessus;
+        private System.Windows.Forms.GroupBox gBoxSimulation;
         private System.Windows.Forms.Button btnAjout;
         private System.Windows.Forms.Button btnSup;
         private System.Windows.Forms.Button btnLancerPCA;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gBoxRAM;
         private System.Windows.Forms.DataGridView dgv_RAM;
         private System.Windows.Forms.Button btnLancerPP;
         private System.Windows.Forms.Button btn_reinitialiser;

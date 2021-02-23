@@ -12,26 +12,27 @@ using System.Timers;
 
 namespace tp01_SE
 {
-    public partial class PrincipalForm : Form
+    // Formulaire principal 
+    public partial class principalForm : Form
     {
         List<Processus> lstProcessus;
         int rowCountMax = 0;
         bool executePCA = false;        
 
-        public PrincipalForm()
+        public principalForm()
         {
             InitializeComponent();
             this.lstProcessus = new List<Processus>();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void principalForm_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Bienvenue sur l'outil: Ordonnanceur\n" +
-                            "Version: Beta\n" +
-                            "Author: Bétil Charlotte & Chevallier Pierre\n" +
+            MessageBox.Show("Bienvenue sur l'outil: Ordonnanceur\n" +                           
+                            "Auteurs: Bétil Charlotte & Chevallier Pierre\n" +
                             "Organisation: UQAR\n");
         }
 
+        //Lancement de PCA
         private void btnLancerPCA_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Lancement de la simulation PCA");
@@ -49,6 +50,7 @@ namespace tp01_SE
             }
         }
 
+        //Lancement de PP
         private void btnLancerPP_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Lancement de la simulation PP");
@@ -65,13 +67,19 @@ namespace tp01_SE
             }
         }
 
+        // Ajout de processus
         private void btnAjout_Click(object sender, EventArgs e)
         {
             Form form = new AddProcessForm(ref this.lstProcessus);
             form.ShowDialog();
-            this.displayLstThread();
+            if (AddProcessForm.annuler == false)
+            {
+                this.displayLstThread();
+            }
+            AddProcessForm.annuler = false;
         }
 
+        // Suppression de processus
         private void btnSup_Click(object sender, EventArgs e)
         {
             Form form = new SupProcessForm(ref this.lstProcessus);
@@ -79,6 +87,7 @@ namespace tp01_SE
             this.displayLstThread();            
         }
 
+        // Construction du tableau représentant la RAM
         private void displayLstThread()
         {         
             int rowIndex = 1;
@@ -107,6 +116,7 @@ namespace tp01_SE
             }
         }         
 
+        // Gestion des changements de couleur
         private void updateCouleur()
         {
             int column = 0;
@@ -137,6 +147,7 @@ namespace tp01_SE
             dgv_RAM.Refresh();
         }
 
+        // Algorithme d'ordonnancement PCA
         private List<Processus> OrderListProcessusPCA(List<Processus> newlistProcessus)
         {
             List<Processus> newList = new List<Processus>();            
@@ -168,6 +179,7 @@ namespace tp01_SE
             return newList;
         }
 
+        // Algorithme d'ordonnancement PP
         private List<Processus> OrderListProcessusPP(List<Processus> newlistProcessus)
         {
             List<Processus> newList = new List<Processus>();
@@ -199,6 +211,7 @@ namespace tp01_SE
             return newList;
         }       
 
+        // Lancement d'un processus
         private void launchProcessus(List<Processus> orderedListPRocessus) 
         {           
             bool flag = false;
@@ -223,6 +236,7 @@ namespace tp01_SE
                             break;
                         }
                         int i = 0;
+                        // Terminer le processus si son temps d'exécution est 0
                         if (processus.getEstimatedExecutionTime() == 0)
                         {
                             processus.setEtat(Enums.etatProcessus.Termine);
@@ -236,7 +250,8 @@ namespace tp01_SE
                             if (flag)
                             {
                                 break;
-                            }                        
+                            }            
+                            // Terminer le thread si son temps d'exécution est 0
                             if (thread.getEstimatedExecutionTime() == 0)
                             {
                                 thread.setEtat(Enums.etatThread.Termine);                                                                                                                           
@@ -247,6 +262,7 @@ namespace tp01_SE
                                 if (instruction.Etat != Enums.etatInstruction.Termine)
                                 {
                                     pasTermine = true;
+                                    // Réordonnancement quand on atteint une E/S
                                     if (instruction.Type == Enums.type.EntreeSortie)
                                     {
                                         orderedListProcessus2.Clear();
@@ -258,6 +274,7 @@ namespace tp01_SE
                                     }
                                     else
                                     {
+                                        // Exécution du calcul
                                         executerCalcul(instruction, thread, processus);
                                         justeCalcul = true;
                                     }
@@ -327,11 +344,13 @@ namespace tp01_SE
             }
         }       
 
+        // Temps d'exécution pour les calculs
         private void sleep()
         {
             System.Threading.Thread.Sleep(1000);
         }
         
+        // Update la taille du tableau qui représente la RAM
         private void updateSizeDgv_RAM()
         {
             dgv_RAM.Rows.Clear();
@@ -356,6 +375,7 @@ namespace tp01_SE
             dgv_RAM.ColumnCount = columnCount;
         }
 
+        // Réinitialiser les processus
         private void btn_reinitialiser_Click(object sender, EventArgs e)
         {
             executePCA = false;
@@ -387,6 +407,7 @@ namespace tp01_SE
             updateCouleur();
         } 
         
+        // Obtenir la position d'un thread
         private int getThreadAffiche(Thread thread)
         {
             int positionThreadAffiche = 0;
@@ -405,6 +426,7 @@ namespace tp01_SE
             return positionThreadAffiche;
         }
 
+        // Décrémenter le temps d'exécution d'une E/S
         private void decrementerTempsESBloque()
         {
             foreach (Processus process in this.lstProcessus)
@@ -432,6 +454,7 @@ namespace tp01_SE
             }
         }    
 
+        // Exécution d'une E/S
         private List<Processus> executerES(Instruction instruction, Thread thread, Processus processus)
         {
             instruction.Etat = Enums.etatInstruction.EnCours;
@@ -451,6 +474,7 @@ namespace tp01_SE
             }
         }
 
+        // Exécution d'un calcul
         private void executerCalcul(Instruction instruction, Thread thread, Processus processus)
         {
             processus.setEtat(Enums.etatProcessus.Actif);
@@ -464,6 +488,7 @@ namespace tp01_SE
             updateCouleur();            
         }
 
+        // Valider si tous les processus sont terminés
         private bool validerSiTermine()
         {
             foreach (Processus process in this.lstProcessus)
@@ -476,6 +501,7 @@ namespace tp01_SE
             return true;
         }
 
+        // Décrémenter la priorité (pour le PP uniquement)
         private void decrementerPriorite(Processus processus)
         {           
             if(executePCA == false)
@@ -489,6 +515,7 @@ namespace tp01_SE
             }
         }
 
+        // Update les informations d'un thread
         private void updateInfoThread(Processus processus)
         {
             int indexThread = 0;
