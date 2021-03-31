@@ -18,6 +18,9 @@ namespace tp01_SE
         private decimal nbInstructES;
         private int estimatedExecutionTime;
         public int nbThread;
+        private int nbInstructionsExecutees;
+        private int taille;
+        private bool attenteBarriere;
         private Enums.etatProcessus etat;
         private List<Thread> lstThread = new List<Thread>();
 
@@ -32,14 +35,23 @@ namespace tp01_SE
             this.indiceTID = indiceTID;
             this.initLstThread();
             this.calculateEstimatedExecutionTime();
+            this.calculerTaille();
             this.etat = Enums.etatProcessus.Pret;
-            this.prioriteInitiale = priorite;            
+            this.prioriteInitiale = priorite;
+            this.nbInstructionsExecutees = 0;
+            this.attenteBarriere = false;
         }
 
         // Obtenir le nom d'un processus
         public string getName()
         {
             return (this.nom);
+        }
+
+        // Obtenir le PID d'un processus
+        public int getPID()
+        {
+            return (this.PID);
         }
 
         // Obtenir tous les threads d'un processus
@@ -142,7 +154,63 @@ namespace tp01_SE
             {
                 estimatedExecutionTime += thread.getEstimatedExecutionTime();
             }
-        }        
+        }
+
+        // Obtenir la taille qu'occupe le processus dans la RAM
+        public int getTaille()
+        {
+            this.calculerTaille();
+            return (this.taille);
+        }
+
+        // Calculer la taille qu'occupe le processus dans la RAM
+        private void calculerTaille()
+        {
+            this.taille = 0;
+            foreach (Thread thread in this.lstThread)
+            {
+                foreach (Instruction instruction in thread.getInstructions())
+                {
+                    taille += 1;
+                }
+            }
+        }
+
+        // Obtenir le nombre d'instructions exécutées du processus
+        public int getNbInstructionsExecutees()
+        {
+            return (this.nbInstructionsExecutees);
+        }
+
+        // Définir le nombre d'instructions exécutées du processus
+        public void setNbInstructionsExecutees()
+        {
+            this.nbInstructionsExecutees++;
+        }
+
+        // Réinitialiser le nombre d'instructions exécutées du processus
+        public void reinitialiserNbInstructionsExecutees()
+        {
+            this.nbInstructionsExecutees = 0;
+        }
+
+        // Mettre un processus en attente de la barrière
+        public void mettreEnAttenteBarriere()
+        {
+            this.attenteBarriere = true;
+        }
+
+        // Arrêter d'attendre à la barrière
+        public void libererDeBarriere()
+        {
+            this.attenteBarriere = false;
+        }
+
+        // Savoir si un processus attend après une barrière
+        public bool getAttenteBarriere()
+        {
+            return (this.attenteBarriere);
+        }
     }
 
     // Mélanger les instructions

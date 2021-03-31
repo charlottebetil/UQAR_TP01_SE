@@ -77,5 +77,16 @@ namespace tp01_SE
             annuler = true;
             this.Close();
         }
+
+        // Calculer la taille totale de tous les processus créés
+        private int calculerTailleTotaleProcessus()
+        {
+            int tailleTotale = 0;
+            foreach (Processus processus in lstProcessus)
+            {
+                tailleTotale += processus.getTaille();
+            }
+            return tailleTotale;
+        }
     }
 }

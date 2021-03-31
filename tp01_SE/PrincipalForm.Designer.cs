@@ -37,10 +37,17 @@
             this.btnLancerPCA = new System.Windows.Forms.Button();
             this.gBoxRAM = new System.Windows.Forms.GroupBox();
             this.dgv_RAM = new System.Windows.Forms.DataGridView();
+            this.btn_ajouterBarriere = new System.Windows.Forms.Button();
+            this.gBox_Barriere = new System.Windows.Forms.GroupBox();
+            this.btn_supprimerBarriere = new System.Windows.Forms.Button();
+            this.lblInfosBarrieres = new System.Windows.Forms.Label();
+            this.pnlInfosBarrieres = new System.Windows.Forms.Panel();
             this.gBoxProcessus.SuspendLayout();
             this.gBoxSimulation.SuspendLayout();
             this.gBoxRAM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_RAM)).BeginInit();
+            this.gBox_Barriere.SuspendLayout();
+            this.pnlInfosBarrieres.SuspendLayout();
             this.SuspendLayout();
             // 
             // gBoxProcessus
@@ -128,30 +135,85 @@
             // gBoxRAM
             // 
             this.gBoxRAM.Controls.Add(this.dgv_RAM);
-            this.gBoxRAM.Location = new System.Drawing.Point(16, 132);
+            this.gBoxRAM.Location = new System.Drawing.Point(25, 186);
             this.gBoxRAM.Margin = new System.Windows.Forms.Padding(4);
             this.gBoxRAM.Name = "gBoxRAM";
             this.gBoxRAM.Padding = new System.Windows.Forms.Padding(4);
-            this.gBoxRAM.Size = new System.Drawing.Size(1285, 447);
+            this.gBoxRAM.Size = new System.Drawing.Size(1276, 479);
             this.gBoxRAM.TabIndex = 3;
             this.gBoxRAM.TabStop = false;
-            this.gBoxRAM.Text = "RAM";
+            this.gBoxRAM.Text = "RAM - 15ko";
             // 
             // dgv_RAM
             // 
             this.dgv_RAM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_RAM.Location = new System.Drawing.Point(9, 22);
+            this.dgv_RAM.Location = new System.Drawing.Point(7, 22);
             this.dgv_RAM.Name = "dgv_RAM";
             this.dgv_RAM.RowHeadersWidth = 51;
             this.dgv_RAM.RowTemplate.Height = 24;
-            this.dgv_RAM.Size = new System.Drawing.Size(1269, 418);
+            this.dgv_RAM.Size = new System.Drawing.Size(1269, 478);
             this.dgv_RAM.TabIndex = 1;
+            // 
+            // btn_ajouterBarriere
+            // 
+            this.btn_ajouterBarriere.Location = new System.Drawing.Point(8, 23);
+            this.btn_ajouterBarriere.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_ajouterBarriere.Name = "btn_ajouterBarriere";
+            this.btn_ajouterBarriere.Size = new System.Drawing.Size(182, 34);
+            this.btn_ajouterBarriere.TabIndex = 5;
+            this.btn_ajouterBarriere.Text = "Ajouter une barrière";
+            this.btn_ajouterBarriere.UseVisualStyleBackColor = true;
+            this.btn_ajouterBarriere.Click += new System.EventHandler(this.btn_ajouterBarriere_Click);
+            // 
+            // gBox_Barriere
+            // 
+            this.gBox_Barriere.Controls.Add(this.pnlInfosBarrieres);
+            this.gBox_Barriere.Controls.Add(this.btn_supprimerBarriere);
+            this.gBox_Barriere.Controls.Add(this.btn_ajouterBarriere);
+            this.gBox_Barriere.Location = new System.Drawing.Point(651, 14);
+            this.gBox_Barriere.Margin = new System.Windows.Forms.Padding(4);
+            this.gBox_Barriere.Name = "gBox_Barriere";
+            this.gBox_Barriere.Padding = new System.Windows.Forms.Padding(4);
+            this.gBox_Barriere.Size = new System.Drawing.Size(582, 164);
+            this.gBox_Barriere.TabIndex = 3;
+            this.gBox_Barriere.TabStop = false;
+            this.gBox_Barriere.Text = "Barrière";
+            // 
+            // btn_supprimerBarriere
+            // 
+            this.btn_supprimerBarriere.Location = new System.Drawing.Point(8, 67);
+            this.btn_supprimerBarriere.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_supprimerBarriere.Name = "btn_supprimerBarriere";
+            this.btn_supprimerBarriere.Size = new System.Drawing.Size(182, 38);
+            this.btn_supprimerBarriere.TabIndex = 6;
+            this.btn_supprimerBarriere.Text = "Supprimer une barrière";
+            this.btn_supprimerBarriere.UseVisualStyleBackColor = true;
+            this.btn_supprimerBarriere.Click += new System.EventHandler(this.btn_supprimerBarriere_Click);
+            // 
+            // lblInfosBarrieres
+            // 
+            this.lblInfosBarrieres.AutoSize = true;
+            this.lblInfosBarrieres.Location = new System.Drawing.Point(19, 7);
+            this.lblInfosBarrieres.Name = "lblInfosBarrieres";
+            this.lblInfosBarrieres.Size = new System.Drawing.Size(30, 17);
+            this.lblInfosBarrieres.TabIndex = 9;
+            this.lblInfosBarrieres.Text = "allo";
+            // 
+            // pnlInfosBarrieres
+            // 
+            this.pnlInfosBarrieres.AutoScroll = true;
+            this.pnlInfosBarrieres.Controls.Add(this.lblInfosBarrieres);
+            this.pnlInfosBarrieres.Location = new System.Drawing.Point(210, 13);
+            this.pnlInfosBarrieres.Name = "pnlInfosBarrieres";
+            this.pnlInfosBarrieres.Size = new System.Drawing.Size(346, 132);
+            this.pnlInfosBarrieres.TabIndex = 10;
             // 
             // principalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1314, 602);
+            this.ClientSize = new System.Drawing.Size(1617, 748);
+            this.Controls.Add(this.gBox_Barriere);
             this.Controls.Add(this.gBoxRAM);
             this.Controls.Add(this.gBoxSimulation);
             this.Controls.Add(this.gBoxProcessus);
@@ -163,6 +225,9 @@
             this.gBoxSimulation.ResumeLayout(false);
             this.gBoxRAM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_RAM)).EndInit();
+            this.gBox_Barriere.ResumeLayout(false);
+            this.pnlInfosBarrieres.ResumeLayout(false);
+            this.pnlInfosBarrieres.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -178,6 +243,11 @@
         private System.Windows.Forms.DataGridView dgv_RAM;
         private System.Windows.Forms.Button btnLancerPP;
         private System.Windows.Forms.Button btn_reinitialiser;
+        private System.Windows.Forms.Button btn_ajouterBarriere;
+        private System.Windows.Forms.GroupBox gBox_Barriere;
+        private System.Windows.Forms.Button btn_supprimerBarriere;        
+        private System.Windows.Forms.Panel pnlInfosBarrieres;
+        private System.Windows.Forms.Label lblInfosBarrieres;
     }
 }
 

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 
 namespace tp01_SE
 {
@@ -16,13 +15,15 @@ namespace tp01_SE
     public partial class principalForm : Form
     {
         List<Processus> lstProcessus;
+        List<Barriere> lstBarrieres;       
         int rowCountMax = 0;
-        bool executePCA = false;        
+        bool executePCA = false;       
 
         public principalForm()
         {
             InitializeComponent();
             this.lstProcessus = new List<Processus>();
+            this.lstBarrieres = new List<Barriere>();
         }
 
         private void principalForm_Load(object sender, EventArgs e)
@@ -231,90 +232,115 @@ namespace tp01_SE
                 {
                     foreach (Processus processus in orderedListPRocessus)
                     {
-                        if (flag)
-                        {
-                            break;
-                        }
-                        int i = 0;
-                        // Terminer le processus si son temps d'exécution est 0
-                        if (processus.getEstimatedExecutionTime() == 0)
-                        {
-                            processus.setEtat(Enums.etatProcessus.Termine);
-                        }
-                        else
-                        {
-                            decrementerPriorite(processus);
-                        }
-                        foreach (Thread thread in processus.getThreads())
+                        processusTousRenduBarriere();
+                        unSeulProcessusBarriere();
+                        attenteSiBarriere(processus);
+                        if (processus.getAttenteBarriere() == false)
                         {
                             if (flag)
                             {
                                 break;
-                            }            
-                            // Terminer le thread si son temps d'exécution est 0
-                            if (thread.getEstimatedExecutionTime() == 0)
-                            {
-                                thread.setEtat(Enums.etatThread.Termine);                                                                                                                           
                             }
-                            updateInfoThread(processus);
-                            foreach (Instruction instruction in thread.getInstructions())
-                            {                                
-                                if (instruction.Etat != Enums.etatInstruction.Termine)
-                                {
-                                    pasTermine = true;
-                                    // Réordonnancement quand on atteint une E/S
-                                    if (instruction.Type == Enums.type.EntreeSortie)
-                                    {
-                                        orderedListProcessus2.Clear();
-                                        orderedListProcessus2.AddRange(executerES(instruction, thread, processus));
-                                        termine = validerSiTermine();
-                                        flag = true;
-                                        justeCalcul = false;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        // Exécution du calcul
-                                        executerCalcul(instruction, thread, processus);
-                                        justeCalcul = true;
-                                    }
-                                }
-                                i++;
-                            }
-                            if (thread.getEstimatedExecutionTime() == 0 && justeCalcul == true)
+                            if (processus.getAttenteBarriere() == true)
                             {
-                                thread.setEtat(Enums.etatThread.Termine);
-                                updateInfoThread(processus);
+                                break;
                             }
-                        }
-                        if (processus.getEstimatedExecutionTime() == 0 && justeCalcul == true)
-                        {
-                            processus.setEtat(Enums.etatProcessus.Termine);      
-                            foreach (Thread thread in processus.getThreads())
+                            int i = 0;
+                            // Terminer le processus si son temps d'exécution est 0
+                            if (processus.getEstimatedExecutionTime() == 0)
                             {
-                                thread.setEtat(Enums.etatThread.Termine);
-                                updateInfoThread(processus);
-                            }
-                        }
-                        justeCalcul = false;
-                        if (pasTermine == false)
-                        {
-                            decrementerTempsESBloque();
-                            orderedListProcessus2.Clear();
-                            if (executePCA == true)
-                            {
-                                orderedListProcessus2.AddRange(OrderListProcessusPCA(orderedListPRocessus));
+                                processus.setEtat(Enums.etatProcessus.Termine);
                             }
                             else
                             {
-                                orderedListProcessus2.AddRange(OrderListProcessusPP(orderedListPRocessus));
+                                decrementerPriorite(processus);                                
                             }
-                            if (orderedListProcessus2.Count == 0)
+                            foreach (Thread thread in processus.getThreads())
                             {
-                                flag = true;
+                                if (flag)
+                                {
+                                    break;
+                                }
+                                if (processus.getAttenteBarriere() == true)
+                                {
+                                    break;
+                                }
+                                // Terminer le thread si son temps d'exécution est 0
+                                if (thread.getEstimatedExecutionTime() == 0)
+                                {
+                                    thread.setEtat(Enums.etatThread.Termine);
+                                }                                
+                                updateInfoThread(processus);
+                                foreach (Instruction instruction in thread.getInstructions())
+                                {                                    
+                                    if (processus.getAttenteBarriere() == true)
+                                    {
+                                        break;
+                                    }
+                                        if (instruction.Etat != Enums.etatInstruction.Termine)
+                                    {
+                                        pasTermine = true;
+                                        processus.setNbInstructionsExecutees();
+                                        attenteSiBarriere(processus);
+                                        // Réordonnancement quand on atteint une E/S
+                                        if (instruction.Type == Enums.type.EntreeSortie)
+                                        {
+                                            orderedListProcessus2.Clear();
+                                            orderedListProcessus2.AddRange(executerES(instruction, thread, processus));
+                                            termine = validerSiTermine();
+                                            flag = true;
+                                            justeCalcul = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            // Exécution du calcul
+                                            executerCalcul(instruction, thread, processus);
+                                            justeCalcul = true;
+                                        }
+                                    }
+                                    i++;
+                                }
+                                if (thread.getEstimatedExecutionTime() == 0 && justeCalcul == true)
+                                {
+                                    thread.setEtat(Enums.etatThread.Termine);
+                                    updateInfoThread(processus);
+                                }
                             }
+                            if (processus.getEstimatedExecutionTime() == 0 && justeCalcul == true)
+                            {
+                                processus.setEtat(Enums.etatProcessus.Termine);
+                                foreach (Thread thread in processus.getThreads())
+                                {
+                                    thread.setEtat(Enums.etatThread.Termine);
+                                    updateInfoThread(processus);
+                                }
+                            }
+                            justeCalcul = false;
+                            if (pasTermine == false)
+                            {
+                                decrementerTempsESBloque();
+                                orderedListProcessus2.Clear();
+                                if (executePCA == true)
+                                {
+                                    orderedListProcessus2.AddRange(OrderListProcessusPCA(orderedListPRocessus));
+                                }
+                                else
+                                {
+                                    orderedListProcessus2.AddRange(OrderListProcessusPP(orderedListPRocessus));
+                                }
+                                if (orderedListProcessus2.Count == 0)
+                                {
+                                    flag = true;
+                                }
+                            }
+                            pasTermine = false;
+                        }    
+                        else if (processusBarriereOuBloque(orderedListPRocessus) == true)
+                        {                                               
+                            orderedListProcessus2.Clear();
+                            flag = true;
                         }
-                        pasTermine = false;
                     }
                     updateCouleur();
                 }
@@ -382,6 +408,8 @@ namespace tp01_SE
             int indexThread = 0;
             foreach (Processus process in this.lstProcessus)
             {
+                process.reinitialiserNbInstructionsExecutees();
+                process.libererDeBarriere();
                 process.setEtat(Enums.etatProcessus.Pret);
                 process.reinitialiserPriorite();
                 foreach (Thread thread in process.getThreads())
@@ -403,6 +431,10 @@ namespace tp01_SE
                     }
                     indexThread++;
                 }
+            }
+            foreach(Barriere barriere in lstBarrieres)
+            {
+                barriere.reinitialiserBarrierePassee();
             }
             updateCouleur();
         } 
@@ -524,6 +556,152 @@ namespace tp01_SE
                 indexThread = getThreadAffiche(thread);
                 dgv_RAM.Columns[indexThread].Name = thread.getInfoThread(processus);
             }           
+        }
+
+        // Ajouter une barrière
+        private void btn_ajouterBarriere_Click(object sender, EventArgs e)
+        {
+            Form form = new AddBarriereForm(ref this.lstBarrieres, ref this.lstProcessus);
+            if(AddBarriereForm.deuxProcessusBarriere == true)
+            {
+                form.ShowDialog();
+            }
+            afficherInfosBarrieres();
+        }
+
+        // Supprimer une barrière
+        private void btn_supprimerBarriere_Click(object sender, EventArgs e)
+        {
+            Form form = new SupBarriereForm(ref this.lstBarrieres);
+            form.ShowDialog();
+            afficherInfosBarrieres();
+        }                
+
+        // Mettre en attente un processus s'il doit attendre à la barrière
+        private void attenteSiBarriere(Processus processus)
+        {
+            foreach (Barriere barriere in lstBarrieres)
+            {
+                if (barriere.getBarrierePassee() == false)
+                {
+                    foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
+                    {
+                        if(processus.getPID() == kvp.Key)
+                        {
+                            if (processus.getNbInstructionsExecutees() == kvp.Value)
+                            {
+                                processus.mettreEnAttenteBarriere();
+                                processus.setEtat(Enums.etatProcessus.Pret);
+                                foreach (Thread thread in processus.getThreads())
+                                {
+                                    thread.setEtat(Enums.etatThread.Pret);
+                                    updateInfoThread(processus);
+                                }
+                            }
+                        }
+                    }                    
+                }
+            }
+        }
+
+        // Si tous les processus sont rendus à la barrière, les débloquer
+        private void processusTousRenduBarriere()
+        {            
+            int nbProcessusEnAttente = 0;
+            foreach (Processus processus in lstProcessus)
+            {
+                if(processus.getAttenteBarriere() == true)
+                {
+                    nbProcessusEnAttente++;
+                }                
+            }
+            if (nbProcessusEnAttente == lstProcessus.Count)
+            {                
+                foreach (Processus processus in lstProcessus)
+                {
+                    processus.libererDeBarriere();
+                    foreach (Barriere barriere in lstBarrieres)
+                    {
+                        foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
+                        {
+                            if (processus.getPID() == kvp.Key)
+                            {
+                                if (processus.getNbInstructionsExecutees() == kvp.Value)
+                                {
+                                    barriere.setBarrierePassee();
+                                }
+                            }
+                        }                        
+                    }
+                }
+            }
+        }
+
+        // Gérer les cas quand il reste un seul processus à passer la barrière et que tous les autres sont terminés
+        private void unSeulProcessusBarriere()
+        {          
+            int nbProcessusEnAttente = 0;           
+            int nbProcessusTermines = 0;
+            foreach (Processus processus in lstProcessus)
+            {
+                if (processus.getAttenteBarriere() == true || (processus.getEtat() == Enums.etatProcessus.Termine && processus.getAttenteBarriere() == false))
+                {
+                    nbProcessusEnAttente++;
+                }
+            }                          
+            if (nbProcessusTermines + nbProcessusEnAttente == lstProcessus.Count)
+            {
+                foreach (Processus processus in lstProcessus)
+                {
+                    processus.libererDeBarriere();
+                    foreach (Barriere barriere in lstBarrieres)
+                    {
+                        foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
+                        {
+                            if (processus.getPID() == kvp.Key)
+                            {
+                                if (processus.getNbInstructionsExecutees() == kvp.Value)
+                                {
+                                    barriere.setBarrierePassee();
+                                }
+                            }
+                        }                       
+                    }
+                }
+            }                     
+        }
+
+        private bool processusBarriereOuBloque(List<Processus> listeProcessus)
+        {
+            bool processusBarriereOuBloque = false;
+            int nbProcessusBloquee = 0;
+            foreach (Processus processus in lstProcessus)
+            {
+                if (processus.getEtat() == Enums.etatProcessus.Bloque || processus.getAttenteBarriere() == true || processus.getEtat() == Enums.etatProcessus.Termine)                        
+                {
+                    nbProcessusBloquee++;
+                }
+            }
+            if (nbProcessusBloquee >= listeProcessus.Count)
+            {
+                processusBarriereOuBloque = true;
+            }
+            return processusBarriereOuBloque;
+        }
+
+        // Afficher les informations des barrières
+        private void afficherInfosBarrieres()
+        {
+            lblInfosBarrieres.Text = "";
+            lblInfosBarrieres.Height += 10;
+            foreach (Barriere barriere in lstBarrieres)
+            {
+                lblInfosBarrieres.Text += $"Barriere {barriere.getID()} : \n";
+                foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
+                {
+                    lblInfosBarrieres.Text += $"PID {kvp.Key} : instruction #{kvp.Value} \n";
+                }
+            }
         }
     }
 }

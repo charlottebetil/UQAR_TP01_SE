@@ -41,7 +41,7 @@ namespace tp01_SE
                 this.Close();
             } else
             {
-                MessageBox.Show("Selectionnez un processsus");
+                MessageBox.Show("Selectionnez un processus");
             }
         }
 
