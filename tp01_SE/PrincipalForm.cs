@@ -83,9 +83,10 @@ namespace tp01_SE
         // Suppression de processus
         private void btnSup_Click(object sender, EventArgs e)
         {
-            Form form = new SupProcessForm(ref this.lstProcessus);
+            Form form = new SupProcessForm(ref this.lstProcessus, ref this.lstBarrieres);
             form.ShowDialog();            
-            this.displayLstThread();            
+            this.displayLstThread();
+            afficherInfosBarrieres();
         }
 
         // Construction du tableau représentant la RAM
@@ -262,7 +263,7 @@ namespace tp01_SE
                                     break;
                                 }
                                 if (processus.getAttenteBarriere() == true)
-                                {
+                                {                                    
                                     break;
                                 }
                                 // Terminer le thread si son temps d'exécution est 0
@@ -272,16 +273,18 @@ namespace tp01_SE
                                 }                                
                                 updateInfoThread(processus);
                                 foreach (Instruction instruction in thread.getInstructions())
-                                {                                    
+                                {
+                                    processusTousRenduBarriere();
                                     if (processus.getAttenteBarriere() == true)
                                     {
+                                        thread.setEtat(Enums.etatThread.Pret);
+                                        processus.setEtat(Enums.etatProcessus.Pret);
+                                        updateInfoThread(processus);
                                         break;
                                     }
                                         if (instruction.Etat != Enums.etatInstruction.Termine)
                                     {
-                                        pasTermine = true;
-                                        processus.setNbInstructionsExecutees();
-                                        attenteSiBarriere(processus);
+                                        pasTermine = true;                                                                                
                                         // Réordonnancement quand on atteint une E/S
                                         if (instruction.Type == Enums.type.EntreeSortie)
                                         {
@@ -294,8 +297,10 @@ namespace tp01_SE
                                         }
                                         else
                                         {
-                                            // Exécution du calcul
+                                            // Exécution du calcul                                            
                                             executerCalcul(instruction, thread, processus);
+                                            processus.setNbInstructionsExecutees();
+                                            attenteSiBarriere(processus);
                                             justeCalcul = true;
                                         }
                                     }
@@ -475,6 +480,8 @@ namespace tp01_SE
                                 if (instruction.NbrSecondeBloquee == 0)
                                 {
                                     instruction.Etat = Enums.etatInstruction.Termine;
+                                    process.setNbInstructionsExecutees();
+                                    attenteSiBarriere(process);
                                     process.setEtat(Enums.etatProcessus.Pret);
                                     thread.setEtat(Enums.etatThread.Pret);
                                     updateInfoThread(process);
@@ -607,34 +614,39 @@ namespace tp01_SE
         // Si tous les processus sont rendus à la barrière, les débloquer
         private void processusTousRenduBarriere()
         {            
-            int nbProcessusEnAttente = 0;
-            foreach (Processus processus in lstProcessus)
+            int nbProcessusEnAttente = 0;         
+            foreach (Barriere barriere in lstBarrieres)
             {
-                if(processus.getAttenteBarriere() == true)
-                {
-                    nbProcessusEnAttente++;
-                }                
-            }
-            if (nbProcessusEnAttente == lstProcessus.Count)
-            {                
-                foreach (Processus processus in lstProcessus)
-                {
-                    processus.libererDeBarriere();
-                    foreach (Barriere barriere in lstBarrieres)
+                nbProcessusEnAttente = 0;
+                if (barriere.getBarrierePassee() == false)
+                {                                 
+                    foreach (Processus processus in lstProcessus)
                     {
                         foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
                         {
                             if (processus.getPID() == kvp.Key)
-                            {
-                                if (processus.getNbInstructionsExecutees() == kvp.Value)
+                            {                                
+                                if (processus.getAttenteBarriere() == true && processus.getNbInstructionsExecutees() == kvp.Value)
                                 {
-                                    barriere.setBarrierePassee();
+                                    nbProcessusEnAttente++;
                                 }
                             }
+                        }                         
+                    }                  
+                    if (nbProcessusEnAttente == barriere.getBarriere().Count)
+                    {
+                        foreach (Processus processus in lstProcessus)
+                        {
+                            processus.libererDeBarriere();
+                            barriere.setBarrierePassee();
                         }                        
                     }
-                }
-            }
+                    foreach (Processus processus in lstProcessus)
+                    {
+                        attenteSiBarriere(processus);
+                    }                                                            
+                }                   
+            }            
         }
 
         // Gérer les cas quand il reste un seul processus à passer la barrière et que tous les autres sont terminés
@@ -675,7 +687,7 @@ namespace tp01_SE
         {
             bool processusBarriereOuBloque = false;
             int nbProcessusBloquee = 0;
-            foreach (Processus processus in lstProcessus)
+            foreach (Processus processus in listeProcessus)
             {
                 if (processus.getEtat() == Enums.etatProcessus.Bloque || processus.getAttenteBarriere() == true || processus.getEtat() == Enums.etatProcessus.Termine)                        
                 {

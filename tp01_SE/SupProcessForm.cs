@@ -13,10 +13,12 @@ namespace tp01_SE
     public partial class SupProcessForm : Form
     {
         private List<Processus> lstProcessus;
-        public SupProcessForm(ref List<Processus> lstProcessus)
+        private List<Barriere> lstBarrieres;
+        public SupProcessForm(ref List<Processus> lstProcessus, ref List<Barriere> lstBarrieres)
         {
             InitializeComponent();
             this.lstProcessus = lstProcessus;
+            this.lstBarrieres = lstBarrieres;
             this.displayLstProcess();
         }
 
@@ -37,7 +39,9 @@ namespace tp01_SE
             if (this.lstProcessusAnnule.SelectedItem != null) {
                 ListBox.SelectedObjectCollection selectedItem = new ListBox.SelectedObjectCollection(lstProcessusAnnule);
                 lstProcessusAnnule.Items.Remove(selectedItem);
-                lstProcessus.Remove(lstProcessus.Find(process => process.getName() == this.lstProcessusAnnule.SelectedItem.ToString()));
+                //lstProcessus.Remove(lstProcessus.Find(process => process.getName() == this.lstProcessusAnnule.SelectedItem.ToString()));
+                supBarriere(processusASupprimer(selectedItem));
+                lstProcessus.Remove(processusASupprimer(selectedItem));                
                 this.Close();
             } else
             {
@@ -50,5 +54,32 @@ namespace tp01_SE
         {
             this.Close();
         }       
+
+        private Processus processusASupprimer(ListBox.SelectedObjectCollection selectedItem)
+        {
+            return lstProcessus.Find(process => process.getName() == this.lstProcessusAnnule.SelectedItem.ToString());
+        }
+
+        // Supprimer une barrière si elle contenait le processus supprimé
+        private void supBarriere(Processus processus)
+        {
+            bool processusSupprime = false;
+            foreach(Barriere barriere in lstBarrieres)
+            {
+                foreach (KeyValuePair<int, int> kvp in barriere.getBarriere())
+                {
+                    if (processus.getPID() == kvp.Key)
+                    {
+                        lstBarrieres.Remove(lstBarrieres.Find(cetteBarriere => cetteBarriere.getID() == barriere.getID()));
+                        processusSupprime = true;
+                        break;
+                    }
+                }             
+                if (processusSupprime == true)
+                {
+                    break;
+                }
+            }
+        }
     }
 }

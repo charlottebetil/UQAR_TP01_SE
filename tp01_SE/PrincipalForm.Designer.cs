@@ -42,12 +42,16 @@
             this.btn_supprimerBarriere = new System.Windows.Forms.Button();
             this.lblInfosBarrieres = new System.Windows.Forms.Label();
             this.pnlInfosBarrieres = new System.Windows.Forms.Panel();
+            this.gBoxMemVi = new System.Windows.Forms.GroupBox();
+            this.dgv_MemVi = new System.Windows.Forms.DataGridView();
             this.gBoxProcessus.SuspendLayout();
             this.gBoxSimulation.SuspendLayout();
             this.gBoxRAM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_RAM)).BeginInit();
             this.gBox_Barriere.SuspendLayout();
             this.pnlInfosBarrieres.SuspendLayout();
+            this.gBoxMemVi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_MemVi)).BeginInit();
             this.SuspendLayout();
             // 
             // gBoxProcessus
@@ -139,7 +143,7 @@
             this.gBoxRAM.Margin = new System.Windows.Forms.Padding(4);
             this.gBoxRAM.Name = "gBoxRAM";
             this.gBoxRAM.Padding = new System.Windows.Forms.Padding(4);
-            this.gBoxRAM.Size = new System.Drawing.Size(1276, 479);
+            this.gBoxRAM.Size = new System.Drawing.Size(998, 479);
             this.gBoxRAM.TabIndex = 3;
             this.gBoxRAM.TabStop = false;
             this.gBoxRAM.Text = "RAM - 15ko";
@@ -151,7 +155,7 @@
             this.dgv_RAM.Name = "dgv_RAM";
             this.dgv_RAM.RowHeadersWidth = 51;
             this.dgv_RAM.RowTemplate.Height = 24;
-            this.dgv_RAM.Size = new System.Drawing.Size(1269, 478);
+            this.dgv_RAM.Size = new System.Drawing.Size(980, 478);
             this.dgv_RAM.TabIndex = 1;
             // 
             // btn_ajouterBarriere
@@ -195,9 +199,8 @@
             this.lblInfosBarrieres.AutoSize = true;
             this.lblInfosBarrieres.Location = new System.Drawing.Point(19, 7);
             this.lblInfosBarrieres.Name = "lblInfosBarrieres";
-            this.lblInfosBarrieres.Size = new System.Drawing.Size(30, 17);
+            this.lblInfosBarrieres.Size = new System.Drawing.Size(0, 17);
             this.lblInfosBarrieres.TabIndex = 9;
-            this.lblInfosBarrieres.Text = "allo";
             // 
             // pnlInfosBarrieres
             // 
@@ -208,11 +211,32 @@
             this.pnlInfosBarrieres.Size = new System.Drawing.Size(346, 132);
             this.pnlInfosBarrieres.TabIndex = 10;
             // 
+            // gBoxMemVi
+            // 
+            this.gBoxMemVi.Controls.Add(this.dgv_MemVi);
+            this.gBoxMemVi.Location = new System.Drawing.Point(1033, 186);
+            this.gBoxMemVi.Name = "gBoxMemVi";
+            this.gBoxMemVi.Size = new System.Drawing.Size(641, 479);
+            this.gBoxMemVi.TabIndex = 4;
+            this.gBoxMemVi.TabStop = false;
+            this.gBoxMemVi.Text = "Mémoire virtuelle";
+            // 
+            // dgv_MemVi
+            // 
+            this.dgv_MemVi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_MemVi.Location = new System.Drawing.Point(15, 22);
+            this.dgv_MemVi.Name = "dgv_MemVi";
+            this.dgv_MemVi.RowHeadersWidth = 51;
+            this.dgv_MemVi.RowTemplate.Height = 24;
+            this.dgv_MemVi.Size = new System.Drawing.Size(620, 451);
+            this.dgv_MemVi.TabIndex = 0;
+            // 
             // principalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1617, 748);
+            this.ClientSize = new System.Drawing.Size(1708, 748);
+            this.Controls.Add(this.gBoxMemVi);
             this.Controls.Add(this.gBox_Barriere);
             this.Controls.Add(this.gBoxRAM);
             this.Controls.Add(this.gBoxSimulation);
@@ -228,6 +252,8 @@
             this.gBox_Barriere.ResumeLayout(false);
             this.pnlInfosBarrieres.ResumeLayout(false);
             this.pnlInfosBarrieres.PerformLayout();
+            this.gBoxMemVi.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_MemVi)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -248,6 +274,8 @@
         private System.Windows.Forms.Button btn_supprimerBarriere;        
         private System.Windows.Forms.Panel pnlInfosBarrieres;
         private System.Windows.Forms.Label lblInfosBarrieres;
+        private System.Windows.Forms.GroupBox gBoxMemVi;
+        private System.Windows.Forms.DataGridView dgv_MemVi;
     }
 }
 

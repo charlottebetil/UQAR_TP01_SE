@@ -80,7 +80,7 @@ namespace tp01_SE
         // Trouver l'instruction du processus de la barrière précédante (pour éviter les interblocages)
         private int trouverInstructionPrecedante(Processus processus)
         {
-            int instructionPrec = 0;
+            int instructionPrec = 1;
             
             foreach (KeyValuePair< int, int> kvp in lstBarrieres[lstBarrieres.Count-1].barriere)
             {
